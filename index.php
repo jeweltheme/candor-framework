@@ -3,7 +3,7 @@
 Plugin Name: Candor Framework
 Plugin URI: https://github.com/jeweltheme/Candor-Framework
 Description: Candor Framework - The Leading Force Behind <a href="http://jeweltheme.com" target="_blank">Jewel Theme</a> Custom Post Types, Theme Options and Functions, Meta Boxes etc.
-Version: 1.2.4
+Version: 1.2.3
 Author: Jewel Theme
 Author URI: https://www.jeweltheme.com
 */	
@@ -52,16 +52,6 @@ require_once( CANDOR_FRAMEWORK_PATH . 'init.php' );
  */
 require_once( CANDOR_FRAMEWORK_PATH . 'lib/navwalker.php' );
 
-
-/**
- * We use LESS CSS in our Themes, don't worry, this is all parsed and cached the first time you load your page,
- * or when you change the theme options, this is not re-compiled on every page load.
- * Variables are passed to the LESS files from the enqueue section of theme_functions
- * If you need to you can edit the LESS files manually, though you'd be best doing this from a child theme.
- */
-
-require_once( CANDOR_FRAMEWORK_PATH . 'lib/lessc.inc.php' );
-require_once( CANDOR_FRAMEWORK_PATH . 'lib/wp-less.php' );
 
 // Twitter API
 //require_once( CANDOR_FRAMEWORK_PATH . 'lib/twitter/setup.php' );

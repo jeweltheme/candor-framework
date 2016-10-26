@@ -21,8 +21,10 @@ $defaults = array(
 	'faq_post_type'          => '0',
 	'menu_post_type'         => '0',
 	'mega_menu'              => '0',
+	'aq_resizer'             => '0',
 	'likes'                  => '0',
 	'options'                => '0',
+	'candor_cache'           => '0',
 
 	'sections_post_type'  	 => '0',
 	'paypal_donation'  	 	 => '0',
@@ -43,6 +45,11 @@ $defaults = array(
 	'elevation_widgets'      => '0',
 	'elevation_vc_blocks'    => '0',
 	'elevation_shortcodes'   => '0',
+
+	//Shopaholic
+	'shopaholic_widgets'      => '0',
+	'shopaholic_vc_blocks'    => '0',
+	'shopaholic_shortcodes'   => '0',
 
 	//Polmo PRO
 	'polmo_pro_widgets'    	 => '0',
@@ -66,6 +73,37 @@ if( '1' == $candor_options['angels_shortcodes'] ){
 
 	// Shortcodes
 	require_once( CANDOR_FRAMEWORK_PATH  . '/themes/angels-shortcode.php');
+
+
+	/* ---------------------------------------------------------
+	Custom Metaboxes - https://github.com/WebDevStudios/CMB2
+	----------------------------------------------------------- */
+
+	// Check for PHP version and use the correct one
+	$candordir = ( version_compare( PHP_VERSION, '5.3.0' ) >= 0 ) ? __DIR__ : dirname( __FILE__ );
+
+	if ( file_exists(  $candordir . '/CMB2/metabox.php' ) ) {
+		//require_once  $candordir . '/CMB2/init.php';
+		require_once  $candordir . '/CMB2/metabox.php';
+	} 
+	elseif ( file_exists(  $candordir . '/CMB2/init.php' ) ) {
+		require_once  $candordir . '/CMB2/init.php';
+	}
+
+
+	/* Include Plugins */
+	if ( file_exists(  $candordir . '/lib/cmb-field-map.php' ) ) {
+	    include_once( $candordir . '/lib/cmb-field-map.php');
+	}
+	if ( file_exists(  $candordir . '/lib/font-awesome-field.php' ) ) {
+	    include_once( $candordir . '/lib/font-awesome-field.php');
+	}
+
+	// Icons
+	if ( file_exists(  $candordir . '/lib/icons.php' ) ) {
+	    include_once($candordir . '/lib/icons.php');
+	}
+
 }
 
 
@@ -115,6 +153,24 @@ if( '1' == $candor_options['elevation_shortcodes'] ){
 
 
 /**
+ * Shopaholic Theme Required Files
+ */
+
+if( '1' == $candor_options['shopaholic_widgets'] ){
+	require_once( CANDOR_FRAMEWORK_PATH . 'widgets/elevation-widgets.php' );	
+}
+
+/**
+ * Register appropriate Elevation Shortcodes
+ */
+if( '1' == $candor_options['shopaholic_shortcodes'] ){
+	require_once( CANDOR_FRAMEWORK_PATH . 'themes/shopaholic-shortcodes.php' );	
+}
+
+
+
+
+/**
  * Register appropriate Polmo Pro Widgets
  */
 
@@ -123,6 +179,27 @@ if( '1' == $candor_options['polmo_pro_widgets'] ){
 }
 
 
+
+/**
+ * Turn on the image resizer.
+ * The resizer file has a class exists check to avoid conflicts
+ */
+if( '1' == $candor_options['aq_resizer'] ){
+	require_once( CANDOR_FRAMEWORK_PATH . 'aq_resizer.php' );		
+}
+
+
+/**
+* CMB Metabox
+ * Grab our custom metaboxes class
+ */
+if( '1' == $candor_options['cmbmetaboxes'] ){
+	// require_once( CANDOR_FRAMEWORK_PATH . 'metaboxes/init.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'metaboxes/metabox.php' );
+	 require_once( CANDOR_FRAMEWORK_PATH . 'cmb/metaboxes.php' );
+
+
+}
 
 
 /*
@@ -134,11 +211,32 @@ if( '1' == $candor_options['rwmbmetabox'] ){
 }
 
 
+/**
+ * We use LESS CSS in our Themes, don't worry, this is all parsed and cached the first time you load your page,
+ * or when you change the theme options, this is not re-compiled on every page load.
+ * Variables are passed to the LESS files from the enqueue section of theme_functions
+ * If you need to you can edit the LESS files manually, though you'd be best doing this from a child theme.
+ */
+if( '1' == $candor_options['candor_cache'] ){
+	require_once( CANDOR_FRAMEWORK_PATH . 'lib/lessc.inc.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'lib/wp-less.php' );
+
+}
+
+
 /*
 * Paypal Donation
 */
 if( '1' == $candor_options['paypal_donation'] ){
 	require_once( CANDOR_FRAMEWORK_PATH . 'lib/paypal.php' );
+}
+
+
+/**
+ * Grab candor likes, make sure Candor likes isn't installed though
+ */
+if(!( class_exists( 'candorLikes' ) || class_exists( 'CandorLikes' ) ) && '1' == $candor_options['likes'] ){
+	require_once( CANDOR_FRAMEWORK_PATH . 'candor-likes/likes.php' );
 }
 
 
@@ -247,33 +345,6 @@ if( '1' == $candor_options['sections_post_type'] ){
 
 
 
-/* ---------------------------------------------------------
-Custom Metaboxes - https://github.com/WebDevStudios/CMB2
------------------------------------------------------------ */
-
-// Check for PHP version and use the correct one
-$candordir = ( version_compare( PHP_VERSION, '5.3.0' ) >= 0 ) ? __DIR__ : dirname( __FILE__ );
-
-if ( file_exists(  $candordir . '/CMB2/metabox.php' ) ) {
-	//require_once  $candordir . '/CMB2/init.php';
-	require_once  $candordir . '/CMB2/metabox.php';
-} 
-elseif ( file_exists(  $candordir . '/CMB2/init.php' ) ) {
-	require_once  $candordir . '/CMB2/init.php';
-}
-
-/* Include Plugins */
-if ( file_exists(  $candordir . '/lib/cmb-field-map.php' ) ) {
-    include_once( $candordir . '/lib/cmb-field-map.php');
-}
-if ( file_exists(  $candordir . '/lib/font-awesome-field.php' ) ) {
-    include_once( $candordir . '/lib/font-awesome-field.php');
-}
-
-// Icons
-if ( file_exists(  $candordir . '/lib/icons.php' ) ) {
-    include_once($candordir . '/lib/icons.php');
-}
 
 
 
@@ -317,7 +388,7 @@ if(!( function_exists('candor_get_site_layouts') )){
  * Custom Posts Query with Sorting Order
  * =================================================================================*/
 function candor_get_custom_posts($type, $limit = 20, $order = "DESC"){
-    //wp_reset_postdata();
+    wp_reset_postdata();
     $args = array(
         "posts_per_page" 	=> $limit,
         "post_type" 		=> $type,
@@ -351,7 +422,7 @@ function candor_framework_custom_admin_notice_css() {
 /*===================================================================================
  * WP TITLE
  * =================================================================================*/
-if ( ! function_exists( '_wp_render_title_tag' ) ) {
+if ( ! function_exists( 'candor_render_wp_title' ) ) {
 	function candor_render_wp_title() {?>
 		<title><?php wp_title( '|', true, 'right' ); ?></title>
 <?php
@@ -465,6 +536,64 @@ if( '1' == $candor_options['elevation_vc_blocks'] ){
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_subscriber_block.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_gallery_block.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_coming_soon_block.php' );
+}
+
+
+
+/*
+* Register Appropriate Shortcodes for Elevation
+*/
+
+if( '1' == $candor_options['shopaholic_vc_blocks'] ){
+	//require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/shopaholic_image_box_feature.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_features.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_product_categories_grid.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_partners_block.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_product_category.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_mailchimp.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_recent_post.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_discount.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_products_trending.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_product_featured.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_products_featured_new.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_faq.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_skills.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_feature_items.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_services.php' );	
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_service_inspire.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_service_box.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_contact.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_pricing.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_google_map.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_section_title.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_counter.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_team.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_testimonial.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_partners.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_blog_classic.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_blog_grid.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_blog_masonry.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_portfolio_grid.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_portfolio_list.php' );
+
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_section_title_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_page_title_block.php' );
+	
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_call_to_action.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_service_box_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_content_image_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_team_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_donate_box_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_content_video_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_urgent_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_featured_content_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_testimonial_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_partners_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_main_causes_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_events_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_subscriber_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_gallery_block.php' );
+	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_coming_soon_block.php' );
 }
 
 
