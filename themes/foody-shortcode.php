@@ -1,23 +1,5 @@
 <?php
 
-remove_filter ('the_content', 'wpautop');
-
-/*===================================================================================
- * Add Author Links
- * =================================================================================*/
-function foody_add_to_author_profile( $contactmethods ) {
-  
-  $contactmethods['facebook_profile'] = 'Facebook Profile URL';
-  $contactmethods['twitter_profile']  = 'Twitter Profile URL';  
-  $contactmethods['google_profile']   = 'Google Profile URL';   
-  $contactmethods['dribbble_profile'] = 'Dribbble Profile URL';
-  $contactmethods['linkedin_profile'] = 'Linkedin Profile URL';
-  
-  return $contactmethods;
-}
-add_filter( 'user_contactmethods', 'foody_add_to_author_profile', 10, 1);
-
-
 //add_filter( 'the_content', 'wpautop' , 99);
 add_filter( 'the_content', 'foody_shortcode_empty_paragraph_fix' );
 /**
