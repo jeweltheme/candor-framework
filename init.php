@@ -540,15 +540,14 @@ if( '1' == $candor_options['elevation_vc_blocks'] ){
 
 
 
+
 /*
 * Register Appropriate Shortcodes for Elevation
 */
 
 if( '1' == $candor_options['shopaholic_vc_blocks'] ){
-	//require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/shopaholic_image_box_feature.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_features.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_product_categories_grid.php' );
-	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_partners_block.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_product_category.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_mailchimp.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_recent_post.php' );
@@ -576,25 +575,9 @@ if( '1' == $candor_options['shopaholic_vc_blocks'] ){
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_portfolio_grid.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/shopaholic/vc_portfolio_list.php' );
 
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_section_title_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_page_title_block.php' );
-	
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_call_to_action.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_service_box_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_content_image_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_team_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_donate_box_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_content_video_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_urgent_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_featured_content_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_testimonial_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_partners_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_main_causes_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_events_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_subscriber_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_gallery_block.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/elevation/vc_coming_soon_block.php' );
+
 }
+
 
 
 
