@@ -7,10 +7,11 @@ function candor_team_shortcode( $atts ) {
 	extract( 
 		shortcode_atts( 
 			array(
-				'type' 		=> 'carousel',
-				'pppage' 	=> '5',
-				'style' 	=> 'default',
-				'filter' 	=> 'all'
+				'type' 			=> 'carousel',
+				'pppage' 		=> '5',
+				'style' 		=> 'default',
+				'filter' 		=> 'all',
+				//'team_cat' 		=> ''
 			), $atts 
 		) 
 	);
@@ -95,11 +96,12 @@ function candor_team_shortcode( $atts ) {
 }
 add_shortcode( 'elevation_team', 'candor_team_shortcode' );
 
+
 /**
  * The VC Functions
  */
 function candor_team_shortcode_vc() {
-	
+
 	vc_map( 
 		array(
 			"icon" => 'elevation-vc-block',
@@ -121,8 +123,15 @@ function candor_team_shortcode_vc() {
 					"value" => array(
 						'Default Style' 	=> 'default',
 						'Grid Style' 		=> 'grid'
-						),
 					),
+				),
+				// array(
+				// 	'type' => 'dropdown',
+				// 	'heading' => esc_html__( 'Team Category', 'elevation' ),
+				// 	'param_name' => 'team_cat',
+				// 	'value'		  => $categories_array,
+				// 	'description' => esc_html__( 'List of Team categories', 'elevation' ),
+				// ),
 			)
 		) 
 	);

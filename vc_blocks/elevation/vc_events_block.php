@@ -366,7 +366,7 @@ function candor_framework_events_shortcode( $atts ) {
 	
 	return $output;
 }
-//add_shortcode( 'elevation_events', 'candor_framework_events_shortcode' );
+add_shortcode( 'elevation_events', 'candor_framework_events_shortcode' );
 
 
 /**
