@@ -45,11 +45,14 @@ function candor_framework_main_causes_shortcode( $atts ) {
               <div class="section-details">
                 <div id="causes-slider" class="causes-slider owl-carousel">
                   	<?php 
-                  	$causes = candor_get_custom_posts("causes", $pppage);
+                  	
+                  	$query_args = array(
+                  		'post_type' => 'causes',
+                  		'posts_per_page' => $pppage
+                  		);
 
-                  	foreach ($causes as $key =>$post) {
-                  		setup_postdata($post);
-
+					$cause_query = new WP_Query( $query_args );
+					if ( $cause_query->have_posts() ) { while ( $cause_query->have_posts() ) { $cause_query->the_post();
 
 					    $main_causes_currency 			= get_post_meta( $post->ID, '_elevation_causes_currency',true );
 					    $main_causes_raised 			= get_post_meta( $post->ID, '_elevation_causes_raised',true );
@@ -86,7 +89,7 @@ function candor_framework_main_causes_shortcode( $atts ) {
 
 		                    </div><!-- /.item-content -->
 		                  </div><!-- /.item -->
-					<?php } ?>
+					<?php } } ?>
 
                 </div><!-- /#causes-slider -->
               </div><!-- /.section-details -->
@@ -96,7 +99,8 @@ function candor_framework_main_causes_shortcode( $atts ) {
 
 			
 <?php	
-	
+	wp_reset_postdata();
+	wp_reset_query();
 	$output = ob_get_contents();
 	ob_end_clean();
 	

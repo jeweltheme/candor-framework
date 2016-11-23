@@ -88,6 +88,7 @@ function candor_team_shortcode( $atts ) {
 				
 <?php	
 	wp_reset_postdata();
+	wp_reset_query();
 	
 	$output = ob_get_contents();
 	ob_end_clean();
