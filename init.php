@@ -55,6 +55,11 @@ $defaults = array(
 	'polmo_pro_widgets'    	 => '0',
 	'polmo_pro_vc_blocks'    => '0',
 
+	//NORD
+	'nord_widgets'     		=> '0',
+	'nord_vc_blocks'   		=> '0',
+	'nord_shortcodes'  		=> '0',
+
 
 );
 $candor_options = wp_parse_args( get_option('candor_framework_options'), $defaults);
@@ -161,10 +166,19 @@ if( '1' == $candor_options['shopaholic_widgets'] ){
 }
 
 /**
- * Register appropriate Elevation Shortcodes
+ * Register appropriate Shopaholic Shortcodes
  */
 if( '1' == $candor_options['shopaholic_shortcodes'] ){
 	require_once( CANDOR_FRAMEWORK_PATH . 'themes/shopaholic-shortcodes.php' );	
+}
+
+
+
+/**
+ * Register appropriate Elevation Shortcodes
+ */
+if( '1' == $candor_options['nord_shortcodes'] ){
+	require_once( CANDOR_FRAMEWORK_PATH . 'themes/nord-functions.php' );	
 }
 
 
@@ -597,4 +611,31 @@ if( '1' == $candor_options['polmo_pro_vc_blocks'] ){
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/polmo-pro/vc_home_blog_block.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/polmo-pro/vc_testimonial_block.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/polmo-pro/vc_social_block.php' );
+}
+
+/*
+* Register Appropriate Shortcodes for NORD
+*/
+
+if( '1' == $candor_options['nord_vc_blocks'] ){
+
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_section_title.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_contact.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_contact_map.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_portfolio.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_slider.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_about_studio.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_parallax.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_about_story.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_about_service.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_skills.php' );	
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_experience.php' );	
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_team.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_pricing.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_clients_block.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_fashion_slider.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_case_study.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_video_bg.php' );
+	
+	
 }
