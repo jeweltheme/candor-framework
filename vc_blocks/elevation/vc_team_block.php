@@ -3,7 +3,7 @@
 /**
  * The Shortcode
  */
-function candor_team_shortcode( $atts ) {
+function candor_team_shortcode( $atts, $content= null ) {
 	extract( 
 		shortcode_atts( 
 			array(
@@ -41,32 +41,24 @@ function candor_team_shortcode( $atts ) {
 
 	ob_start();
 ?>
-	<?php if( $style =="default" ){ ?>
+	<?php if( $style == "default" ){ ?>
 		<div class="section-details">
 	        <div id="volunteers-slider" class="volunteers-slider owl-carousel owl-theme">
 
 				<?php 
-					if ( $block_query->have_posts() ) : while ( $block_query->have_posts() ) : $block_query->the_post();
+					if ( $block_query->have_posts() ) { while ( $block_query->have_posts() ) { $block_query->the_post();
 						
 						/**
 						 * Get blog posts by blog layout.
 						 */
 						get_template_part('template-parts/content', 'team');
 					
-					endwhile;	
-					else : 
-						
-						/**
-						 * Display no posts message if none are found.
-						 */
-						get_template_part('template-parts/content','none');
-						
-					endif;
+					} }
 				?>
 			</div>
 		</div>
 
-	<?php } elseif($style == "grid"){ ?>
+	<?php } if($style == "grid"){ ?>
 
 		<div class="section-details">
 			<div id="volunteers-grid" class="volunteers-grid">

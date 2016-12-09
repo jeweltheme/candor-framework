@@ -40,7 +40,7 @@ function candor_framework_events_shortcode( $atts ) {
                     <div class="events-banner">
                       <?php 
                       //$causes1 = candor_get_custom_posts("events", 2, "DESC");
-                        $do_not_duplicate = array();
+                      $do_not_duplicate = array();
                       $args = array(
                         'posts_per_page'   => 2,
                         // 'orderby'          => 'date',
