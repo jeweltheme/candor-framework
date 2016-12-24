@@ -487,7 +487,7 @@ function candor_framework_register_events() {
 		'labels' => $labels,
 		'hierarchical' => false,
 		'description' => __('Events entries.', 'candor'),
-		'supports' => array( 'title', 'thumbnail' ),
+		'supports' => array( 'title', 'thumbnail', 'editor' ),
 		'public' => true,
 		'show_ui' => true,
 		'show_in_menu' => true,

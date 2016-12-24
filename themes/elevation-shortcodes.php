@@ -13,7 +13,8 @@ function elevation_dropcap_shortcode($atts, $content = null){
 function elevation_footer_custom_script(){
   global $elevation_options;
   ?>  
-          <script>
+        <script type="text/javascript">
+
            var elv = jQuery;
            elv.noConflict();
 
@@ -34,23 +35,7 @@ function elevation_footer_custom_script(){
                 });
 
 
-                <?php if ( is_page() && ( basename(get_page_template()) == "coming-soon-template.php" ) ) { 
-                  $coming_soon_date = get_post_meta(get_the_ID(), '_elevation_coming_soon_date', true);
 
-                  $newdates = date_parse($coming_soon_date); 
-                  ?>
-                    elv("#time_countdown_coming_soon").countDown({
-                      targetDate: {
-                        'day':    <?php echo $newdates['day']; ?>,
-                        'month':  <?php echo $newdates['month']; ?>,
-                        'year':   <?php echo $newdates['year']; ?>,
-                        'hour':   <?php echo $newdates['hour']; ?>,
-                        'min':    <?php echo $newdates['minute']; ?>,
-                        'sec':    <?php echo $newdates['second']; ?>
-                     },
-                         omitWeeks: true
-                   });
-                <?php } ?>
 
 
             }); // End of Document 

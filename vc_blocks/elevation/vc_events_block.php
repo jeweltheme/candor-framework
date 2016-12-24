@@ -42,7 +42,10 @@ function candor_framework_events_shortcode( $atts ) {
                       //$causes1 = candor_get_custom_posts("events", 2, "DESC");
                       $do_not_duplicate = array();
                       $args = array(
-                        'posts_per_page'   => 2,
+                        'posts_per_page'   => 2,                        
+                        'order'            => 'ASC',                          
+                        'meta_key'         => '_elevation_event_date',                          
+                        'orderby'          => 'meta_value',
                         // 'orderby'          => 'date',
                         // 'order'            => 'DESC',
                         'post_type'        => 'events'
@@ -153,7 +156,12 @@ function candor_framework_events_shortcode( $atts ) {
                           'post_type'              => 'events',
                           'posts_per_page'         => 3,
                           'post__not_in'           => $do_not_duplicate,
-                          'offset'                 => '2'
+                          'offset'                 => '2',
+
+                          'order'            => 'ASC',                          
+                          'meta_key'         => '_elevation_event_date',                          
+                          'orderby'          => 'meta_value',
+
                           ); 
                         $events_query2 = new WP_Query( $causes2 ); 
 
