@@ -1,7 +1,16 @@
 <?php
+//Remove Unnecessary WP Header Code
+remove_action ('wp_head', 'rsd_link',10, 0);
+remove_action( 'wp_head', 'wlwmanifest_link',10, 0);
+remove_action( 'wp_head', 'wp_shortlink_wp_head',10, 0);
+remove_action('wp_head', 'wp_generator',10, 0);
+
+// Widget Shortcode Support
+add_filter('widget_text', 'do_shortcode');
+
 
 // wishlist
-//if ( is_plugin_active( 'yith-woocommerce-wishlist/init.php' ) || is_plugin_active( 'yith-woocommerce-compare/init.php' ) ){
+if ( in_array( 'yith-woocommerce-wishlist/init.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 	add_action( 'woocommerce_after_single_variation', 'shopaholic_add_wishlist_variation', 10 );
 	add_action( 'woocommerce_single_product_summary', 'shopaholic_before_addcart', 28);
 	//add_action( 'woocommerce_after_add_to_cart_button', 'shopaholic_after_addcart', 38);
@@ -50,7 +59,7 @@
 			echo do_shortcode( "[yith_wcwl_add_to_wishlist]" );
 		}
 	}
-//}
+}
 
 
 

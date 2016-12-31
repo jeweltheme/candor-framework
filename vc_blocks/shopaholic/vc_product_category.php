@@ -48,11 +48,16 @@ function candor_framework_shopaholic_category_product_products( $atts, $content 
                 <div class="item-content media-body">
                   <h4 class="item-title"><a href="<?php the_permalink();?>"><?php echo the_title(); ?></a></h4><!-- /.item-title -->
 
-                  <div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-                  	<div class="star-rating" title="<?php printf( __( 'Rated %s out of 5', 'shopaholic-wp' ), $average ); ?>">
-                  		<span style="width:<?php echo ( ( $average / 5 ) * 100 ); ?>%"></span>
-                  	</div>		
-                  </div>
+	              	<div itemscope itemtype="http://schema.org/Product">
+	              	    <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+		                  	<div class="rating">
+			                  	<div class="star-rating" title="<?php printf( __( 'Rated %s out of 5', 'shopaholic-wp' ), $average ); ?>">
+			                  		<meta itemprop="ratingValue" content="<?php echo ( ( $average / 5 ) * 100 ); ?>" />
+			                  		<span style="width:<?php echo ( ( $average / 5 ) * 100 ); ?>%"></span>
+			                  	</div>		
+		                  	</div>
+		                 </div>
+		            </div>
 
               	<?php if ( $price_html = $product->get_price_html() ){?>
                   	<div class="item-price">		                    
@@ -86,15 +91,6 @@ add_shortcode( 'shopaholic_category_product', 'candor_framework_shopaholic_categ
  */
 function candor_framework_shopaholic_category_product_products_vc() {
 	
-
-	$products_dropdown = array(); 
-	$terms = get_terms( 'product_cat' );
-
-	foreach($terms as $term){
-		$products_dropdown[] = $term->name;
-		//print_r($term);
-	}
-
 	vc_map( 
 		array(
 			"icon" => 'shopaholic-vc-block',
@@ -110,10 +106,10 @@ function candor_framework_shopaholic_category_product_products_vc() {
 					"value" => '3'
 				),
 				array(
-					'type' => 'dropdown',
+					'type' => 'text',
 					'heading' => esc_html__( 'Product Category', 'shopaholic-wp' ),
 					'param_name' => 'product_category',
-					'value'		  => $products_dropdown,
+					'value'		  => 'Design',
 					'description' => esc_html__( 'List of product categories', 'shopaholic-wp' ),
 					),
 

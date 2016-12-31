@@ -70,20 +70,20 @@ function candor_framework_shopaholic_trending_products( $atts, $content = null )
 		                </div>
 
 		                <div class="item-inner">
-		                  	<button class="wish-list">
+		                  	<div class="wish-list">
 			                  	<?php
 			                    	if ( is_plugin_active( 'yith-woocommerce-wishlist/init.php' ) ){
 			                    		echo do_shortcode( "[yith_wcwl_add_to_wishlist]" );
 			                    	}
 		                    	?>
-	                    	</button>
-		                
-		                  <?php $nonce = wp_create_nonce("ya_quickviewproduct_nonce");
-							$link = admin_url('admin-ajax.php?ajax=true&amp;action=shopaholic_quickviewproduct&amp;post_id='.$product->id.'&amp;nonce='.$nonce);
-							$linkcontent ='<a href="'. $link .'" data-fancybox-type="ajax" class="fancybox fancybox.ajax" title="Quick View Product"><i class="fa fa-search"></i> <span>'.apply_filters( 'out_of_stock_add_to_cart_text', __( 'Quick View', 'yatheme' ) ).'</span></a>';
-							echo $linkcontent; 
-						?>
-
+	                    	</div>
+			                <div class="quick_view_item">
+			                  	<?php $nonce = wp_create_nonce("ya_quickviewproduct_nonce");
+									$link = admin_url('admin-ajax.php?ajax=true&amp;action=shopaholic_quickviewproduct&amp;post_id='.$product->id.'&amp;nonce='.$nonce);
+									$linkcontent ='<a href="'. $link .'" data-fancybox-type="ajax" class="fancybox fancybox.ajax" title="Quick View Product"><i class="fa fa-search"></i> <span>'.apply_filters( 'out_of_stock_add_to_cart_text', __( 'Quick View', 'yatheme' ) ).'</span></a>';
+									echo $linkcontent; 
+								?>
+							</div>
 		                </div><!-- /.item-inner -->
 		              </div>
 
@@ -93,11 +93,15 @@ function candor_framework_shopaholic_trending_products( $atts, $content = null )
 		                  	<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
 		                  </h3><!-- /.item-title -->
 		                  
-
-							<div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-								<div class="star-rating" title="<?php printf( __( 'Rated %s out of 5', 'shopaholic-wp' ), $average ); ?>">
-									<span style="width:<?php echo ( ( $average / 5 ) * 100 ); ?>%"></span>
-								</div>		
+		                  	<div itemscope itemtype="http://schema.org/Product">
+								<div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+									<div  class="rating" >
+										<div class="star-rating" title="<?php printf( __( 'Rated %s out of 5', 'shopaholic-wp' ), $average ); ?>">
+											<meta itemprop="ratingValue" content="<?php echo ( ( $average / 5 ) * 100 ); ?>" />
+											<span itemprop="reviewCount" style="width:<?php echo ( ( $average / 5 ) * 100 ); ?>%"></span>
+										</div>		
+									</div>		
+								</div>
 							</div>
 		                  
 		                  	<?php if ( $price_html = $product->get_price_html() ){?>
