@@ -91,6 +91,15 @@ add_shortcode( 'shopaholic_category_product', 'candor_framework_shopaholic_categ
  */
 function candor_framework_shopaholic_category_product_products_vc() {
 	
+
+	$products_dropdown = array(); 
+	$terms = get_terms( 'product_cat' );
+
+	foreach($terms as $term){
+		$products_dropdown[] = $term->name;
+		//print_r($term);
+	}
+
 	vc_map( 
 		array(
 			"icon" => 'shopaholic-vc-block',
@@ -106,10 +115,10 @@ function candor_framework_shopaholic_category_product_products_vc() {
 					"value" => '3'
 				),
 				array(
-					'type' => 'text',
+					'type' => 'dropdown',
 					'heading' => esc_html__( 'Product Category', 'shopaholic-wp' ),
 					'param_name' => 'product_category',
-					'value'		  => 'Design',
+					'value'		  => $products_dropdown,
 					'description' => esc_html__( 'List of product categories', 'shopaholic-wp' ),
 					),
 

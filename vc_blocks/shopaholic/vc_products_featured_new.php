@@ -105,7 +105,7 @@ function candor_framework_shopaholic_featured_products( $atts ) {
 		                			}
 		                			?>
 		                		</div>
-		                		<div class="add-cart-details"><i class="fa fa-shopping-cart"></i>
+		                		<div class="add-cart-details">
 		                			<span>
 		                				<?php woocommerce_template_loop_add_to_cart();?>
 		                			</span>
@@ -144,7 +144,7 @@ function candor_framework_shopaholic_featured_products( $atts ) {
 
 		                <div class="item-bottom">
 		                	
-		                	<div class="add-cart-details"><i class="fa fa-shopping-cart"></i>
+		                	<div class="add-cart-details">
 		                		<span>
 		                			<?php woocommerce_template_loop_add_to_cart();?>
 		                		</span>

@@ -48,10 +48,27 @@ function candor_framework_shopaholic_product_categories_grid_shortcode( $atts, $
 		'child_of'   => $atts['parent']
 	);
 
+	$args6 = array(
+		'include'    	 => $ids,
+		'post_status'    => 'publish',
+		'post_type'      => 'product',
+		'number'	 	 => 3,
+		'child_of'   	 => $atts['parent']
+	);
+
+	$args7 = array(
+		'include'    	 => $ids,
+		'post_status'    => 'publish',
+		'post_type'      => 'product',
+		'number'	 	 => 4,
+		'child_of'   	 => $atts['parent']
+	);
 
 
 	$product_categories1 = get_terms( 'product_cat', $args1 );
 	$product_categories2 = get_terms( 'product_cat', $args2 );
+	$product_categories6 = get_terms( 'product_cat', $args6 );
+	$product_categories7 = get_terms( 'product_cat', $args7 );
 	
 	if ( $atts['orderby'] == 'order' ) {
 		$args['menu_order'] = 'ASC';
@@ -145,7 +162,7 @@ function candor_framework_shopaholic_product_categories_grid_shortcode( $atts, $
 	        </div><!-- /.row -->
 	      </div><!-- /.container -->
 	    </div><!-- /.section-padding -->
-</section><!-- /.collection -->
+	</section><!-- /.collection -->
 <?php } ?>
 
 
@@ -310,6 +327,122 @@ function candor_framework_shopaholic_product_categories_grid_shortcode( $atts, $
 <?php } ?>
 
 
+
+<?php if($atts['style'] == "3"){ ?>
+	
+  <section class="other-banners other-banners-02 text-center">
+    <div class="section-padding">
+      <div class="container">
+        <div class="row">
+
+          <div class="banner-items">
+          	
+          	<?php 	        
+	          foreach ($product_categories6 as $category){
+	          	global $post;
+	          	$thumbnail_id  			= get_woocommerce_term_meta( $category->term_id, 'thumbnail_id', true  );
+	          	$image = wp_get_attachment_image_src( $thumbnail_id, "full" );
+	          ?>
+
+
+	            <div class="col-sm-4">
+	              <div class="item">
+	                <a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>">
+	                  <img src="<?php echo esc_url_raw($image[0])?>" alt="<?php the_title_attribute(); ?>">
+	                  <div class="item-details">
+	                    <h3 class="item-title">
+	                      <?php echo esc_html($category->name); ?>
+	                    </h3><!-- /.item-title -->
+	                  </div><!-- /.item-details -->
+	                </a>
+	              </div><!-- /.item -->
+	            </div>
+
+            <?php } ?>
+
+          </div><!-- /.banner-items -->
+          
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    </div><!-- /.section-padding -->
+  </section><!-- /.other-banners -->
+
+
+
+<?php } ?>
+
+
+
+<?php if($atts['style'] == "4"){ ?>
+
+
+
+ <div class="projects-container">
+    <ul>
+    	<?php 	     
+    	$i = 1;
+    	foreach ($product_categories7 as $category){
+    		global $post;
+    		$thumbnail_id  			= get_woocommerce_term_meta( $category->term_id, 'thumbnail_id', true  );
+    		$image = wp_get_attachment_image_src( $thumbnail_id, "full" );
+
+    		$heading_id  			= get_woocommerce_term_meta( $category->term_id, 'product_cat_heading_thumbnail_id', true  );
+    		$heading_image = wp_get_attachment_image_src( $heading_id, "full" );
+
+    		$product_cat_short_description = get_woocommerce_term_meta( $category->term_id, 'product_cat_short_description', true );
+    		$product_cat_heading_title = get_woocommerce_term_meta( $category->term_id, 'product_cat_heading_title', true );
+    		$product_cat_heading_sub_title = get_woocommerce_term_meta( $category->term_id, 'product_cat_heading_sub_title', true );
+    		$product_cat_heading_button_text = get_woocommerce_term_meta( $category->term_id, 'product_cat_heading_button_text', true );
+    		$product_cat_heading_button_link = get_woocommerce_term_meta( $category->term_id, 'product_cat_heading_button_link', true );
+
+
+    		?>
+
+			<style type="text/css">
+
+				.projects-container .cd-single-project:nth-of-type(<?php echo $i;?>):after {
+					background-image: url("<?php echo esc_url_raw($image[0])?>") !important;
+				}
+				.projects-container .cd-single-project:nth-of-type(<?php echo $i;?>):before {
+					background-image: url('<?php echo esc_url_raw($heading_image[0])?>') !important;
+				}
+			</style>
+
+    		
+
+		      <li class="cd-single-project">
+		        <div class="cd-title">
+		          <div class="content-details">
+		            <h2 class="item-title"><?php echo esc_attr($category->name); ?></h2><!-- /.item-title -->
+		            <div class="expand-content">
+
+		              <h2 class="main-title"><?php echo esc_attr($product_cat_heading_title); ?></h2><!-- /.main-title -->
+		              <h3 class="sub-title"><?php echo esc_attr($product_cat_heading_sub_title); ?></h3><!-- /.sub-title -->		              		                
+		                <?php echo category_description( $category ); ?>		              
+		              <a href="<?php echo esc_attr($product_cat_heading_button_link); ?>" class="btn"><?php echo esc_attr($product_cat_heading_button_text); ?></a>
+		            </div><!-- /.expand-content -->
+		          </div><!-- /.content-details -->
+		        </div> <!-- .cd-title -->
+		      </li>
+
+		<?php $i++; } ?>
+
+    </ul>
+    <a href="#0" class="cd-close"><i class="ti-close"></i></a>
+    <!-- <a href="#0" class="cd-scroll">Scroll</a> -->
+  </div> <!-- .project-container -->
+
+
+
+<?php
+
+wp_enqueue_style( 'expand', SHOPAHOLIC_CSS . 'home/expand.css', SHOPAHOLIC_VER );
+wp_enqueue_script( 'jquery.expand', SHOPAHOLIC_JS . 'jquery.expand.js', SHOPAHOLIC_VER );
+
+} ?>
+
+
+
 		
 <?php	
 	//}
@@ -355,24 +488,31 @@ function candor_framework_shopaholic_product_categories_grid_vc() {
 								"heading" => __( "Grid Style", 'shopaholic-wp'),
 								"param_name" => "style",
 								'admin_label' => true,
-								"value" => array( __( 'Style 1', 'shopaholic-wp') => '1', __( 'Style 2', 'shopaholic-wp') => '2' ,__( 'Style 3', 'shopaholic-wp') => '3' ) ),
-						array(
-								'save_always'=>true,
-								"type" => "dropdown",
-								"class" => "",
-								'std' => '1',
-								"heading" => __( "Grid Gutter", 'shopaholic-wp'),
-								"param_name" => "gutter",
-								"value" => array( __( 'Yes', 'shopaholic-wp') => '1', __( 'No', 'shopaholic-wp') => '0' ) ),
-						array(
-								'save_always'=>true,
-								"type" => "textfield",
-								"heading" => __( "Number", 'shopaholic-wp'),
-								"param_name" => "number",
-								"admin_label" => true,
-								'description' => __(
-									'You can specify the number of category to show (Leave blank to display all categories).',
-									'shopaholic-wp') ),
+								"value" => array( 
+										__( 'Style 1', 'shopaholic-wp') => '1', 
+										__( 'Style 2', 'shopaholic-wp') => '2',
+										__( 'Style 3', 'shopaholic-wp') => '3',
+										__( 'Style 4', 'shopaholic-wp') => '4' 
+
+									) 
+								),
+						// array(
+						// 		'save_always'=>true,
+						// 		"type" => "dropdown",
+						// 		"class" => "",
+						// 		'std' => '1',
+						// 		"heading" => __( "Grid Gutter", 'shopaholic-wp'),
+						// 		"param_name" => "gutter",
+						// 		"value" => array( __( 'Yes', 'shopaholic-wp') => '1', __( 'No', 'shopaholic-wp') => '0' ) ),
+						// array(
+						// 		'save_always'=>true,
+						// 		"type" => "textfield",
+						// 		"heading" => __( "Number", 'shopaholic-wp'),
+						// 		"param_name" => "number",
+						// 		"admin_label" => true,
+						// 		'description' => __(
+						// 			'You can specify the number of category to show (Leave blank to display all categories).',
+						// 			'shopaholic-wp') ),
 						// array(
 						// 		'save_always'=>false,
 						// 		"type" => "dropdown",

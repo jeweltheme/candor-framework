@@ -19,38 +19,42 @@ function candor_framework_shopaholic_features_shortcode( $atts, $content = null 
 	ob_start();
 	$features = vc_param_group_parse_atts( $atts['features'] );
 ?>
-
+<div class="row">
   <section class="features features-0<?php echo esc_attr( $style );?>">
-    <div class="section-padding">
-      <div class="container">
-        <div class="row">
-
-
-        <?php foreach ($features as $key => $value ) {?>
-
-          <div class="col-md-4">
-          	<div class="item media style-<?php if($style == '2') echo '2';?>">
-              <div class="item-icon media-left pull-left">
-                <i class="<?php echo esc_attr( $value['feature_icon'] );?>"></i>
-              </div><!-- /.item-title -->
-              <div class="item-details media-body">
-                <h3 class="item-title"><?php echo esc_attr( $value['title'] );?> </h3><!-- /.item-title -->
-                <p class="description">
-                  <?php echo esc_attr( $value['short_desc'] );?>
-                </p><!-- /.description -->
-              </div><!-- /.item-details -->
-            </div><!-- /.item -->
-          </div>
-
-
+    <div class="section-padding">    	
+    	<?php if( ( $style == '1') || ($style == '2') ){?>
+		      <div class="container">
+		        <div class="row">
 		<?php } ?>
 
 
+	        <?php foreach ($features as $key => $value ) {?>
+
+	          <div class="<?php echo ($style == '4')? "col-md-3 col-sm-6 item media": "col-md-4" ;?>">
+	          	<div class="item media style-<?php if($style == '2') echo '2';?>">
+	              <div class="item-icon media-left pull-left">
+	                <i class="<?php echo esc_attr( $value['feature_icon'] );?>"></i>
+	              </div><!-- /.item-title -->
+	              <div class="item-details media-body">
+	                <h3 class="item-title"><?php echo esc_attr( $value['title'] );?> </h3><!-- /.item-title -->
+	                <p class="description">
+	                  <?php echo esc_attr( $value['short_desc'] );?>
+	                </p><!-- /.description -->
+	              </div><!-- /.item-details -->
+	            </div><!-- /.item -->
+	          </div>
+
+
+			<?php } ?>
+
+		<?php if( ( $style == '1') || ($style == '2') ){?>
         </div><!-- /.row -->
       </div><!-- /.container -->
+      <?php } ?>
+      
     </div><!-- /.section-padding -->
   </section><!-- /.features -->
-
+</div><!-- /.row -->
             
 			
 <?php	
@@ -118,7 +122,8 @@ function candor_framework_shopaholic_features_shortcode_vc() {
 					"value" => array(
 						'Style 1' => '1',
 						'Style 2' => '2',
-						'Style 3' => '3'
+						'Style 3' => '3',
+						'Style 4' => '4'
 						),
 				),
 

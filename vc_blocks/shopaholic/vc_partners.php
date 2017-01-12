@@ -17,10 +17,10 @@ global $post;
 	ob_start();
 
 	if( $style =="style1" ){
-		$style_class = 'clients-logo-01';
+		$style_class = 'clients-logo-01 bg-gray';
 	} 
 	elseif( $style =="style2" ){ 
-		$style_class = 'bg-gray';
+		$style_class = 'bg-transparent';
 	}
 
 ?>
@@ -43,7 +43,7 @@ global $post;
 		                  		$partners_url = get_post_meta( $ID,'_partners_url',true );
 		                  		?>
 									<div class="col-sm-3">
-										<div class="item <?php echo ($style== "style1") ? "bg-gray": "";?>">
+										<div class="item <?php // echo ($style== "style1") ? "bg-gray": "";?>">
 											<a href="<?php echo esc_url_raw( $partners_url );?>" target="_blank">
 												<img src="<?php echo esc_url_raw( $image_thumb['0'] );?>" alt="<?php the_title_attribute();?>">
 											</a>

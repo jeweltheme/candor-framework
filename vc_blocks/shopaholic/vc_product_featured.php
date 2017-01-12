@@ -28,26 +28,50 @@ function candor_framework_shopaholic_featured_category_products( $atts ) {
 	);	
 
 
+$meta_query = array( 
+	'post_type'  => 'product', 
+    'order'      => 'ASC', //ASC
+    'orderby'    => 'meta_value', //meta_value
+    'meta_query' => array(
+    	'relation' => 'OR',
+    	array(
+	    		'key'   => '_featured',
+	    		'value' => 'yes'
+    		),    	
+    	array(
+	        	'key' => '_sale_price',
+	        	'value' => 0,
+	        	'compare' => '>',
+	        	'type' => 'numeric'
+    		),
+    	array(
+	    		'key'   => '_is_hot_item',
+	    		'value' => 'yes'
+    		)
+    	)
 
-	$meta_query = array(
-		'post_type' 		=> 'product',
-		'posts_per_page' 	=> $pppage,
-		'relation' => 'OR',
-		                array( // Simple products type
-		                	'key' => '_sale_price',
-		                	'value' => 0,
-		                	'compare' => '>',
-		                	'type' => 'numeric'
-		                	),
-		                array( // Variable products type
-		                	'key' => '_min_variation_sale_price',
-		                	'value' => 0,
-		                	'compare' => '>',
-		                	'type' => 'numeric'
-		                	)
-		                ); 
+    ); 
+
+
+	// $meta_query = array(
+	// 	'post_type' 		=> 'product',
+	// 	'posts_per_page' 	=> $pppage,
+	// 	'relation' => 'OR',
+	// 	                array( // Simple products type
+	// 	                	'key' => '_sale_price',
+	// 	                	'value' => 0,
+	// 	                	'compare' => '>',
+	// 	                	'type' => 'numeric'
+	// 	                	),
+	// 	                array( // Variable products type
+	// 	                	'key' => '_min_variation_sale_price',
+	// 	                	'value' => 0,
+	// 	                	'compare' => '>',
+	// 	                	'type' => 'numeric'
+	// 	                	)
+	// 	                ); 
 	
-	$product_sale_query = new WP_Query( $meta_query );
+	//$product_sale_query = new WP_Query( $meta_query );
 	
 
 	
@@ -78,7 +102,9 @@ function candor_framework_shopaholic_featured_category_products( $atts ) {
       <div class="container">
         <div class="row">
           <div class="section-top">
-            <h2 class="section-title"><php echo esc_html__('Featured','shopaholic-wp');?><span></span></h2>
+            <h2 class="section-title">
+            	<?php echo esc_html__('Featured','shopaholic-wp');?><span></span>
+            </h2>
           </div><!-- /.section-top -->
 
           <ul class="filter">
@@ -96,10 +122,14 @@ function candor_framework_shopaholic_featured_category_products( $atts ) {
 				global $post, $product;
 
 				$image_thumb = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'full');
-				$price_html = $product->get_price_html();				
-				?>
+				$price_html = $product->get_price_html();		
 
-		            <div class="item col-md-3 col-sm-6 <?php echo esc_attr($featured_products[0]);?>">
+				$is_hot = get_post_meta( $product->id, '_is_hot_item', true );
+				$sale_price = get_post_meta( $product->id, '_sale_price', true );
+				
+			?>
+
+		            <div class="item col-md-3 col-sm-6 <?php echo esc_attr($featured_products[1]);?> <?php echo ($is_hot=="yes")?"$featured_products[0]":"";?> <?php echo ($product->is_on_sale())?"$featured_products[2]":""; ?>">
 		              <div class="item-top">
 		                <div class="item-thumbnail">
 		                  <a href="<?php echo esc_url_raw( $image_thumb['0']); ?>" class="fancybox">
