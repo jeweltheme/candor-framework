@@ -433,17 +433,6 @@ function candor_framework_custom_admin_notice_css() {
 }
 
 
-/*===================================================================================
- * WP TITLE
- * =================================================================================*/
-if ( ! function_exists( 'candor_render_wp_title' ) ) {
-	function candor_render_wp_title() {?>
-		<title><?php wp_title( '|', true, 'right' ); ?></title>
-<?php
-	}
-    add_action( 'wp_head', 'candor_render_wp_title' );
-}
-
 
 if(!( function_exists('candor_get_ti_icons') )){
 	function candor_get_ti_icons(){
