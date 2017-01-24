@@ -86,7 +86,7 @@ function candor_vc_urgent_causes_block_shortcode_vc() {
 					'value'			=> 'Urgent Cause'
 				),
 				array(
-					"type" 			=> "textarea_html",
+					"type" 			=> "textfield",
 					"heading" 		=> esc_html__("Block Content", 'elevation'),
 					"param_name" 	=> "subtitle",
 					'value'			=> 'Please Donate Whatever You Can and Save the Hungry Children in South Sudan'
