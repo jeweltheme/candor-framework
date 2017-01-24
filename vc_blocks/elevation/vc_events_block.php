@@ -200,7 +200,7 @@ function candor_framework_events_shortcode( $atts ) {
                             $event_image  = get_post_meta( get_the_ID(), '_elevation_events_bg_images',true );
                             
 
-                            //$event__hover_img = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() , array('elevation-events-image')));
+                            $event__hover_img = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() , array('elevation-events-image')));
                             $event_img = wp_get_attachment_image_src( $event_image , 'elevation-events-image');
                             //wp_get_attachment_image_src( $product_cover_image_id, 'product-cover-image');
 
@@ -213,9 +213,8 @@ function candor_framework_events_shortcode( $atts ) {
                                 <time datetime="<?php echo esc_attr( $event_date1 );?>"><?php echo $event_day['day']; ?> <span class="month"><?php echo $event_month; ?></span></time>
                                 <a href="<?php echo get_the_permalink();?>" class="btn btn-sm"><?php echo esc_html__('Join Now','elevation');?></a>
                               </div>
-                              <div class="event-details media-body">
+                              <div class="event-details media-body" style="background-image:url(<?php echo $event_img[0];?>)">
                                 
-                                <div class="event-image"><img src="<?php echo $event_img[0];?>" alt="<?php echo get_the_title();?>"></div>
 
                                 <h4 class="event-title"><?php echo get_the_title();?></h4>
                                 <div class="event-meta">
@@ -229,10 +228,8 @@ function candor_framework_events_shortcode( $atts ) {
                                   </div><!-- /.event-place -->
                                 </div><!-- /.event-meta -->
 
-                                <div id="time_countdown<?php echo esc_attr( $j );?>" class="time-count-container">
-                                  <div class="hover-image">
-                                    <?php the_post_thumbnail('elevation-events-image'); ?>
-                                  </div>
+                                <div id="time_countdown<?php echo esc_attr( $j );?>" class="time-count-container" style="background-image:url(<?php echo $event__hover_img[0];?>)">
+                                  <div class="hover-image"></div>
                                   <div class="time-box">
                                     <div class="time-box-inner dash days_dash">
                                       <span class="time-name"><?php echo esc_html__('Days','elevation');?></span>
