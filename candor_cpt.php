@@ -230,7 +230,7 @@ function candor_framework_register_services() {
 		'labels' => $labels,
 		'hierarchical' => false,
 		'description' => __('Service entries for the candor Theme.', 'candor'),
-		'supports' => array( 'title'),
+		'supports' => array( 'title', 'thumbnail'),
 		'public' => true,
 		'show_ui' => true,
 		'show_in_menu' => true,

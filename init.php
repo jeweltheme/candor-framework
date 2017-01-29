@@ -60,6 +60,11 @@ $defaults = array(
 	'nord_vc_blocks'   		=> '0',
 	'nord_shortcodes'  		=> '0',
 
+	//Inventory
+	'inventory_widgets'		=> '0',
+	'inventory_vc_blocks'	=> '0',
+	'inventory_shortcodes'	=> '0',
+
 
 );
 $candor_options = wp_parse_args( get_option('candor_framework_options'), $defaults);
@@ -192,6 +197,17 @@ if( '1' == $candor_options['polmo_pro_widgets'] ){
 	require_once( CANDOR_FRAMEWORK_PATH . 'widgets/polmo-pro-widgets.php' );	
 }
 
+
+
+/**
+ * Register appropriate Inventory Necessary Files
+ */
+if( '1' == $candor_options['inventory_widgets'] ){
+	//require_once( CANDOR_FRAMEWORK_PATH . 'widgets/inventory-widgets.php' );	
+}
+if( '1' == $candor_options['inventory_shortcodes'] ){
+	require_once( CANDOR_FRAMEWORK_PATH . 'themes/inventory-shortcodes.php' );	
+}
 
 
 /**
@@ -626,5 +642,27 @@ if( '1' == $candor_options['nord_vc_blocks'] ){
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_case_study.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/nord/vc_video_bg.php' );
 	
+	
+}
+
+
+/*
+* Register Appropriate Shortcodes for Inventory
+*/
+if( '1' == $candor_options['inventory_vc_blocks'] ){
+
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/how_works.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_button_block.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_pricing_block.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/home_slider_block.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_most_popular_places.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_how_it_works.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_featured_places.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_find_anything.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_blog.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_testimonial.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_service_block.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_callout_block.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_partners_block.php' );
 	
 }
