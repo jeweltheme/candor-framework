@@ -19,6 +19,7 @@ function candor_framework_inventory_home_slider_shortcode( $atts ) {
 				'orderby'         => 'date',
 				'home_slider1_bg' => 'date',
 				'items_ids'       => '',
+				'counter_part'       => '',
 				'categories_slug' => 'arts',				
 
 				'map_lat' 		  => '40.7143528',
@@ -77,8 +78,8 @@ function candor_framework_inventory_home_slider_shortcode( $atts ) {
 	ob_start();
 
 	$home_slider1_bg = wp_get_attachment_image_src( $home_slider1_bg, 'full' );
-	$counter_part = vc_param_group_parse_atts( $atts['counter_part'] );
 	
+	$counter_part = vc_param_group_parse_atts( $atts['counter_part'] );                   	
 
 	global $post;
 
@@ -181,7 +182,9 @@ $atts = apply_filters( 'job_manager_ouput_jobs_defaut', array(
 
 <?php do_action( 'job_manager_job_filters_before', $atts ); ?>
 
-	<?php if( $layout =="style1" ){ ?>
+	<?php if( $layout =="style1" ){ 
+		$fields_options = explode(',', $frontpage_search_fields );
+		?>
 		<div class="inv-start-block inv-bg-block">
 			<img src="<?php echo $home_slider1_bg[0];?>" alt="<?php the_title_attribute();?>" class="inv-img">
 		    <div class="container padd-lr0">
@@ -285,6 +288,7 @@ $atts = apply_filters( 'job_manager_ouput_jobs_defaut', array(
 	
 	<?php } elseif( $layout =="style2" ){
 		$fields_options = explode(',', $frontpage_search_fields );
+
 	?>
 
 		<div class="inv-start-block ">
@@ -386,7 +390,8 @@ $atts = apply_filters( 'job_manager_ouput_jobs_defaut', array(
 	                <div class="col-xs-12 ">
 	                    <div class="inv-places-counts bg8">
 	                    	<?php 
-	                    	$i=7;	                    	
+	                    	$i=7;	 
+	                    	
 	                    	foreach ($counter_part as $key => $value ) {?>
 		                        <div class="inv-places-count col<?php echo $i;?>">
 		                            <span data-to="<?php echo esc_attr( $value['count_number'] );?>" data-speed="10000"></span><i><?php echo esc_attr( $value['count_symbol'] );?></i>
