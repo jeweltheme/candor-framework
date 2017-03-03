@@ -34,6 +34,9 @@ $defaults = array(
 	'cmbmetaboxes'           => '0',
 	'rwmbmetabox'            => '0',
 
+	//Demo Importer
+	'demo_importer'          => '0',
+
 	//Angels
 	'angels_shortcodes'      => '0',
 	
@@ -68,6 +71,13 @@ $defaults = array(
 
 );
 $candor_options = wp_parse_args( get_option('candor_framework_options'), $defaults);
+
+/**
+* Demo Importer
+*/
+if( '1' == $candor_options['demo_importer'] ){
+	require_once( CANDOR_FRAMEWORK_PATH . 'lib/demo-importer/one-click-demo-import.php' );	
+}
 
 
 //Angels Shortcodes

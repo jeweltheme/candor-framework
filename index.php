@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Candor Framework
-Plugin URI: https://github.com/jeweltheme/Candor-Framework
-Description: Candor Framework - The Leading Force Behind <a href="http://jeweltheme.com" target="_blank">Jewel Theme</a> Custom Post Types, Theme Options and Functions, Meta Boxes etc.
-Version: 1.2.4
+Plugin URI: https://github.com/jeweltheme/candor-framework
+Description: Candor Framework - The Leading Force Behind <a href="https://jeweltheme.com" target="_blank">Jewel Theme</a> Custom Post Types, Theme Options and Functions, Meta Boxes etc.
+Version: 1.2.5
 Author: Jewel Theme
 Author URI: https://www.jeweltheme.com
 */	
