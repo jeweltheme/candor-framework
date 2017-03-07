@@ -127,7 +127,7 @@ function candor_framework_inventory_featured_places_shortcode( $atts ) {
 	                    </div>
 	                    <div class="bg8 inv-places2-row">
 	                        <div class="inv-places2-info">
-
+	                        	<div itemscope itemtype="http://schema.org/Place">
 	                            <h3 itemprop="name"><a href="<?php the_job_permalink(); ?>"><?php
 	                            	echo get_the_title();
 	                            	if ( $listing_is_claimed ) :
@@ -139,11 +139,12 @@ function candor_framework_inventory_featured_places_shortcode( $atts ) {
 
 	                            	<?php $listing_address = inventory_get_formatted_address( $post );
 									if ( ! empty( $listing_address ) ) { ?>
-										<span>
+										
 											<?php echo $listing_address; ?>
-										</span>
+										
 									<?php } ?>
 
+	                        	</div>
 	                        </div>
 	                        <div class="inv-places2-footer">
 	                            <div class="info-rating">
@@ -160,7 +161,7 @@ function candor_framework_inventory_featured_places_shortcode( $atts ) {
 												<li>
 													<div class="card__tag">
 														<div class="pin__icon">
-															<?php inventory_display_image( $icon_url, '', true, $attachment_id ); ?>
+															<?php //inventory_display_image( $icon_url, '', true, $attachment_id ); ?>
 														</div>
 													</div>
 												</li>
@@ -179,7 +180,7 @@ function candor_framework_inventory_featured_places_shortcode( $atts ) {
 										<?php } else {
 											if ( get_post_meta( $post->ID, 'geolocation_street', true ) ) { ?>
 												<div class="card__rating  card__pin">
-													<?php get_template_part( 'assets/svg/pin-simple-svg' ) ?>
+													<?php //get_template_part( 'assets/svg/pin-simple-svg' ) ?>
 												</div>
 											<?php }
 										} ?>

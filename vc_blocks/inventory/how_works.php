@@ -39,7 +39,6 @@ function inventory_how_works_shortcode( $atts, $content = null ) {
 	            <?php } ?>
 	            
 	                <h3><?php echo esc_attr( $value['how_works_title'] );?></h3>
-	                <p><?php // echo wpb_js_remove_wpautop(do_shortcode(htmlspecialchars_decode( $value['how_works_content'] )));?></p>
 	                <p><?php echo esc_attr( $value['how_works_content'] );?></p>
 	            </div>
 	        </div>
@@ -116,7 +115,7 @@ function inventory_how_works_shortcode_vc() {
 							'value' => 'Add Your Listing',
 						),				
 						array(
-							"type" => "textarea_html",
+							"type" => "textarea",
 							"heading" => __("Works Content", 'inventory'),
 							"param_name" => "how_works_content",
 							'holder' => 'div',
@@ -136,13 +135,13 @@ function inventory_how_works_shortcode_vc() {
 	                )
 	            ),
 
-			array(
-				"type" => "textfield",
-				"heading" => __("Title", 'inventory'),
-				"param_name" => "how_works_title",
-				'holder' => 'div',
-				'value' => 'Add Your Listing',
-			),	
+			// array(
+			// 	"type" => "textfield",
+			// 	"heading" => __("Title", 'inventory'),
+			// 	"param_name" => "how_works_title",
+			// 	'holder' => 'div',
+			// 	'value' => 'Add Your Listing',
+			// ),	
 
 				
 

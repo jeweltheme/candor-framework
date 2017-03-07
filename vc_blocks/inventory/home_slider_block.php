@@ -79,7 +79,6 @@ function candor_framework_inventory_home_slider_shortcode( $atts ) {
 
 	$home_slider1_bg = wp_get_attachment_image_src( $home_slider1_bg, 'full' );
 	
-	$counter_part = vc_param_group_parse_atts( $atts['counter_part'] );                   	
 
 	global $post;
 
@@ -287,6 +286,7 @@ $atts = apply_filters( 'job_manager_ouput_jobs_defaut', array(
 		</div>
 	
 	<?php } elseif( $layout =="style2" ){
+		$counter_part = vc_param_group_parse_atts( $atts['counter_part'] );     	
 		$fields_options = explode(',', $frontpage_search_fields );
 
 	?>
