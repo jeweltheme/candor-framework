@@ -231,3 +231,64 @@ function get_url_shortcode($atts) {
 	 
  }
  add_shortcode('get_url','get_url_shortcode');
+
+
+
+
+ 
+/**
+ * Display an image from the given url
+ * We use this function when the url may contain a svg file
+ *
+ * @param $url
+ * @param string $class A CSS class
+ * @param bool|true $wrap_as_img If the function should wrap the url in an image tag or not
+ */
+function inventory_display_image( $url, $class = '', $wrap_as_img = true, $attachment_id = null ) {
+	// WP_Filesystem();
+	 global $wp_filesystem;
+
+	if ( ! empty( $url ) && is_string( $url ) ) {
+
+		//we try to inline svgs
+		if ( substr( $url, - 4 ) === '.svg' ) {
+
+			//first let's see if we have an attachment and inline it in the safest way - with readfile
+			//include is a little dangerous because if one has short_open_tags active, the svg header that starts with <? will be seen as PHP code
+			if ( ! empty( $attachment_id ) && false !== @readfile( get_attached_file( $attachment_id ) ) ) {
+			//if ( ! empty( $attachment_id ) && false !== $wp_filesystem->get_contents( get_attached_file( $attachment_id ) )  ) {
+				//all good
+			} elseif ( false !== ( $svg_code = get_transient( md5( $url ) ) ) ) {
+				//now try to get the svg code from cache
+				echo $svg_code;
+			} else {
+
+				//if not let's get the file contents using WP_Filesystem
+				require_once( ABSPATH . 'wp-admin/includes/file.php' );
+
+				WP_Filesystem();
+
+				global $wp_filesystem;
+
+				$svg_code = $wp_filesystem->get_contents( $url );
+
+				if ( ! empty( $svg_code ) ) {
+					set_transient( md5( $url ), $svg_code, 12 * HOUR_IN_SECONDS );
+
+					echo $svg_code;
+				}
+			}
+
+		} elseif ( $wrap_as_img ) {
+
+			if ( ! empty( $class ) ) {
+				$class = ' class="' . $class . '"';
+			}
+
+			echo '<img src="' . $url . '"' . $class . '/>';
+
+		} else {
+			echo $url;
+		}
+	}
+}
