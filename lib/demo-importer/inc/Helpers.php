@@ -72,7 +72,7 @@ class Helpers {
 				return new \WP_Error(
 					'url_or_local_file_not_defined',
 					sprintf(
-						__( '"import_file_url" or "local_import_file" for %s%s%s are not defined!', 'inventory' ),
+						__( '"import_file_url" or "local_import_file" for %s%s%s are not defined!', 'pt-ocdi' ),
 						'<strong>',
 						$import_file_info['import_file_name'],
 						'</strong>'
@@ -200,7 +200,7 @@ class Helpers {
 			return new \WP_Error(
 				'failed_writing_file_to_server',
 				sprintf(
-					__( 'An error occurred while writing file to your server! Tried to write a file to: %s%s.', 'inventory' ),
+					__( 'An error occurred while writing file to your server! Tried to write a file to: %s%s.', 'pt-ocdi' ),
 					'<br>',
 					$file_path
 				)
@@ -243,7 +243,7 @@ class Helpers {
 			return new \WP_Error(
 				'failed_writing_file_to_server',
 				sprintf(
-					__( 'An error occurred while writing file to your server! Tried to write a file to: %s%s.', 'inventory' ),
+					__( 'An error occurred while writing file to your server! Tried to write a file to: %s%s.', 'pt-ocdi' ),
 					'<br>',
 					$file_path
 				)
@@ -277,7 +277,7 @@ class Helpers {
 			return new \WP_Error(
 				'failed_reading_file_from_server',
 				sprintf(
-					__( 'An error occurred while reading a file from your server! Tried reading file from path: %s%s.', 'inventory' ),
+					__( 'An error occurred while reading a file from your server! Tried reading file from path: %s%s.', 'pt-ocdi' ),
 					'<br>',
 					$file_path
 				)
@@ -300,10 +300,10 @@ class Helpers {
 			return new \WP_Error(
 				'no_direct_file_access',
 				sprintf(
-					__( 'This WordPress page does not have %sdirect%s write file access. This plugin needs it in order to save the demo import xml file to the upload directory of your site. You can change this setting with these instructions: %s.', 'inventory' ),
+					__( 'This WordPress page does not have %sdirect%s write file access. This plugin needs it in order to save the demo import xml file to the upload directory of your site. You can change this setting with these instructions: %s.', 'pt-ocdi' ),
 					'<strong>',
 					'</strong>',
-					'<a href="' . esc_url('http://gregorcapuder.com/wordpress-how-to-set-direct-filesystem-method/') .'" target="_blank">How to set <strong>direct</strong> filesystem method</a>'
+					'<a href="http://gregorcapuder.com/wordpress-how-to-set-direct-filesystem-method/" target="_blank">How to set <strong>direct</strong> filesystem method</a>'
 				)
 			);
 		}
@@ -311,8 +311,8 @@ class Helpers {
 		// Get plugin page settings.
 		$plugin_page_setup = apply_filters( 'pt-ocdi/plugin_page_setup', array(
 				'parent_slug' => 'themes.php',
-				'page_title'  => esc_html__( 'One Click Demo Import' , 'inventory' ),
-				'menu_title'  => esc_html__( 'Import Demo Data' , 'inventory' ),
+				'page_title'  => esc_html__( 'One Click Demo Import' , 'pt-ocdi' ),
+				'menu_title'  => esc_html__( 'Import Demo Data' , 'pt-ocdi' ),
 				'capability'  => 'import',
 				'menu_slug'   => 'pt-one-click-demo-import',
 			)
@@ -324,7 +324,7 @@ class Helpers {
 		if ( false === ( $creds = request_filesystem_credentials( $demo_import_page_url, '', false, false, null ) ) ) {
 			return new \WP_error(
 				'filesystem_credentials_could_not_be_retrieved',
-				__( 'An error occurred while retrieving reading/writing permissions to your server (could not retrieve WP filesystem credentials)!', 'inventory' )
+				__( 'An error occurred while retrieving reading/writing permissions to your server (could not retrieve WP filesystem credentials)!', 'pt-ocdi' )
 			);
 		}
 
@@ -332,7 +332,7 @@ class Helpers {
 		if ( ! WP_Filesystem( $creds ) ) {
 			return new \WP_Error(
 				'wrong_login_credentials',
-				__( 'Your WordPress login credentials don\'t allow to use WP_Filesystem!', 'inventory' )
+				__( 'Your WordPress login credentials don\'t allow to use WP_Filesystem!', 'pt-ocdi' )
 			);
 		}
 
@@ -372,7 +372,7 @@ class Helpers {
 		$attachment = array(
 			'guid'           => self::get_log_url( $log_path ),
 			'post_mime_type' => $filetype['type'],
-			'post_title'     => apply_filters( 'pt-ocdi/attachment_prefix', esc_html__( 'One Click Demo Import - ', 'inventory' ) ) . preg_replace( '/\.[^.]+$/', '', basename( $log_path ) ),
+			'post_title'     => apply_filters( 'pt-ocdi/attachment_prefix', esc_html__( 'One Click Demo Import - ', 'pt-ocdi' ) ) . preg_replace( '/\.[^.]+$/', '', basename( $log_path ) ),
 			'post_content'   => '',
 			'post_status'    => 'inherit',
 		);
@@ -406,7 +406,7 @@ class Helpers {
 		if ( ! current_user_can( 'import' ) ) {
 			wp_die(
 				sprintf(
-					__( '%sYour user role isn\'t high enough. You don\'t have permission to import demo data.%s', 'inventory' ),
+					__( '%sYour user role isn\'t high enough. You don\'t have permission to import demo data.%s', 'pt-ocdi' ),
 					'<div class="notice  notice-error"><p>',
 					'</p></div>'
 				)
@@ -441,9 +441,9 @@ class Helpers {
 		if ( empty( $content_file_info['file'] ) || isset( $content_file_info['error'] ) ) {
 			// Write error to log file and send an AJAX response with the error.
 			self::log_error_and_send_ajax_response(
-				__( 'Please upload XML file for content import. If you want to import widgets or customizer settings only, please use Widget Importer & Exporter or the Customizer Export/Import plugin.', 'inventory' ),
+				__( 'Please upload XML file for content import. If you want to import widgets or customizer settings only, please use Widget Importer & Exporter or the Customizer Export/Import plugin.', 'pt-ocdi' ),
 				$log_file_path,
-				esc_html__( 'Upload files', 'inventory' )
+				esc_html__( 'Upload files', 'pt-ocdi' )
 			);
 		}
 
@@ -459,11 +459,11 @@ class Helpers {
 			// Add this error to log file.
 			$log_added = self::append_to_file(
 				sprintf(
-					__( 'Widget file was not uploaded. Error: %s', 'inventory' ),
+					__( 'Widget file was not uploaded. Error: %s', 'pt-ocdi' ),
 					$widget_file_info['error']
 				),
 				$log_file_path,
-				esc_html__( 'Upload files' , 'inventory' )
+				esc_html__( 'Upload files' , 'pt-ocdi' )
 			);
 		}
 
@@ -476,11 +476,11 @@ class Helpers {
 			// Add this error to log file.
 			$log_added = self::append_to_file(
 				sprintf(
-					__( 'Customizer file was not uploaded. Error: %s', 'inventory' ),
+					__( 'Customizer file was not uploaded. Error: %s', 'pt-ocdi' ),
 					$customizer_file_info['error']
 				),
 				$log_file_path,
-				esc_html__( 'Upload files' , 'inventory' )
+				esc_html__( 'Upload files' , 'pt-ocdi' )
 			);
 		}
 
@@ -489,9 +489,9 @@ class Helpers {
 			if ( isset( $_POST['redux_option_name'] ) && empty( $_POST['redux_option_name'] ) ) {
 				// Write error to log file and send an AJAX response with the error.
 				self::log_error_and_send_ajax_response(
-					esc_html__( 'Missing Redux option name! Please also enter the Redux option name!', 'inventory' ),
+					esc_html__( 'Missing Redux option name! Please also enter the Redux option name!', 'pt-ocdi' ),
 					$log_file_path,
-					esc_html__( 'Upload files', 'inventory' )
+					esc_html__( 'Upload files', 'pt-ocdi' )
 				);
 			}
 
@@ -507,19 +507,19 @@ class Helpers {
 			// Add this error to log file.
 			$log_added = self::append_to_file(
 				sprintf(
-					__( 'Redux file was not uploaded. Error: %s', 'inventory' ),
+					__( 'Redux file was not uploaded. Error: %s', 'pt-ocdi' ),
 					$redux_file_info['error']
 				),
 				$log_file_path,
-				esc_html__( 'Upload files' , 'inventory' )
+				esc_html__( 'Upload files' , 'pt-ocdi' )
 			);
 		}
 
 		// Add this message to log file.
 		$log_added = self::append_to_file(
-			__( 'The import files were successfully uploaded!', 'inventory' ) . self::import_file_info( $selected_import_files ),
+			__( 'The import files were successfully uploaded!', 'pt-ocdi' ) . self::import_file_info( $selected_import_files ),
 			$log_file_path,
-			esc_html__( 'Upload files' , 'inventory' )
+			esc_html__( 'Upload files' , 'pt-ocdi' )
 		);
 
 		// Return array with paths of uploaded files.
@@ -533,23 +533,27 @@ class Helpers {
 	 * @param array $selected_import_files array of selected import files.
 	 */
 	public static function import_file_info( $selected_import_files ) {
-		$redux_file_string = array_reduce( $selected_import_files['redux'], function( $string, $item ) {
-			return sprintf( '%1$s%2$s -> %3$s %4$s', $string, $item['option_name'], $item['file_path'], PHP_EOL );
-		}, '' );
+		$redux_file_string = '';
+
+		if ( ! empty( $selected_import_files['redux'] ) ) {
+			$redux_file_string = array_reduce( $selected_import_files['redux'], function( $string, $item ) {
+				return sprintf( '%1$s%2$s -> %3$s %4$s', $string, $item['option_name'], $item['file_path'], PHP_EOL );
+			}, '' );
+		}
 
 		return PHP_EOL .
 		sprintf(
-			__( 'Initial max execution time = %s', 'inventory' ),
+			__( 'Initial max execution time = %s', 'pt-ocdi' ),
 			ini_get( 'max_execution_time' )
 		) . PHP_EOL .
 		sprintf(
-			__( 'Files info:%1$sSite URL = %2$s%1$sData file = %3$s%1$sWidget file = %4$s%1$sCustomizer file = %5$s%1$sRedux files:%1$s%6$s', 'inventory' ),
+			__( 'Files info:%1$sSite URL = %2$s%1$sData file = %3$s%1$sWidget file = %4$s%1$sCustomizer file = %5$s%1$sRedux files:%1$s%6$s', 'pt-ocdi' ),
 			PHP_EOL,
 			get_site_url(),
 			$selected_import_files['content'],
-			empty( $selected_import_files['widgets'] ) ? esc_html__( 'not defined!', 'inventory' ) : $selected_import_files['widgets'],
-			empty( $selected_import_files['customizer'] ) ? esc_html__( 'not defined!', 'inventory' ) : $selected_import_files['customizer'],
-			empty( $selected_import_files['redux'] ) ? esc_html__( 'not defined!', 'inventory' ) : $redux_file_string
+			empty( $selected_import_files['widgets'] ) ? esc_html__( 'not defined!', 'pt-ocdi' ) : $selected_import_files['widgets'],
+			empty( $selected_import_files['customizer'] ) ? esc_html__( 'not defined!', 'pt-ocdi' ) : $selected_import_files['customizer'],
+			empty( $redux_file_string ) ? esc_html__( 'not defined!', 'pt-ocdi' ) : $redux_file_string
 		);
 	}
 

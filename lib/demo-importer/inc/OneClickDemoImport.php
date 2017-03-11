@@ -128,14 +128,14 @@ class OneClickDemoImport {
 	public function create_plugin_page() {
 		$plugin_page_setup = apply_filters( 'pt-ocdi/plugin_page_setup', array(
 				'parent_slug' => 'themes.php',
-				'page_title'  => esc_html__( 'One Click Demo Import' , 'inventory' ),
-				'menu_title'  => esc_html__( 'Import Demo Data' , 'inventory' ),
+				'page_title'  => esc_html__( 'One Click Demo Import' , 'pt-ocdi' ),
+				'menu_title'  => esc_html__( 'Import Demo Data' , 'pt-ocdi' ),
 				'capability'  => 'import',
 				'menu_slug'   => 'pt-one-click-demo-import',
 			)
 		);
 
-		$this->plugin_page = add_theme_page(
+		$this->plugin_page = add_submenu_page(
 			$plugin_page_setup['parent_slug'],
 			$plugin_page_setup['page_title'],
 			$plugin_page_setup['menu_title'],
@@ -166,7 +166,7 @@ class OneClickDemoImport {
 			wp_enqueue_script( 'jquery-ui-dialog' );
 			wp_enqueue_style( 'wp-jquery-ui-dialog' );
 
-			wp_enqueue_script( 'ocdi-main-js', get_template_directory_uri() . '/inc/demo-importer/assets/js/main.js' , array( 'jquery', 'jquery-ui-dialog' ), PT_OCDI_VERSION );
+			wp_enqueue_script( 'ocdi-main-js', PT_OCDI_URL . 'assets/js/main.js' , array( 'jquery', 'jquery-ui-dialog' ), PT_OCDI_VERSION );
 
 			// Get theme data.
 			$theme = wp_get_theme();
@@ -180,17 +180,17 @@ class OneClickDemoImport {
 					'import_popup'     => apply_filters( 'pt-ocdi/enable_grid_layout_import_popup_confirmation', true ),
 					'theme_screenshot' => $theme->get_screenshot(),
 					'texts'            => array(
-						'missing_preview_image' => esc_html__( 'No preview image defined for this import.', 'inventory' ),
-						'dialog_title'          => esc_html__( 'Are you sure?', 'inventory' ),
-						'dialog_no'             => esc_html__( 'Cancel', 'inventory' ),
-						'dialog_yes'            => esc_html__( 'Yes, import!', 'inventory' ),
-						'selected_import_title' => esc_html__( 'Selected Demo Import:', 'inventory' ),
+						'missing_preview_image' => esc_html__( 'No preview image defined for this import.', 'pt-ocdi' ),
+						'dialog_title'          => esc_html__( 'Are you sure?', 'pt-ocdi' ),
+						'dialog_no'             => esc_html__( 'Cancel', 'pt-ocdi' ),
+						'dialog_yes'            => esc_html__( 'Yes, import!', 'pt-ocdi' ),
+						'selected_import_title' => esc_html__( 'Selected demo import:', 'pt-ocdi' ),
 					),
 					'dialog_options' => apply_filters( 'pt-ocdi/confirmation_dialog_options', array() )
 				)
 			);
 
-			wp_enqueue_style( 'ocdi-main-css', get_template_directory_uri() . '/inc/demo-importer/assets/css/main.css', array() , PT_OCDI_VERSION );
+			wp_enqueue_style( 'ocdi-main-css', PT_OCDI_URL . 'assets/css/main.css', array() , PT_OCDI_VERSION );
 		}
 	}
 
@@ -231,7 +231,7 @@ class OneClickDemoImport {
 				$this->selected_import_files = Helpers::process_uploaded_files( $_FILES, $this->log_file_path );
 
 				// Set the name of the import files, because we used the uploaded files.
-				$this->import_files[ $this->selected_index ]['import_file_name'] = esc_html__( 'Manually uploaded files', 'inventory' );
+				$this->import_files[ $this->selected_index ]['import_file_name'] = esc_html__( 'Manually uploaded files', 'pt-ocdi' );
 			}
 			elseif ( ! empty( $this->import_files[ $this->selected_index ] ) ) { // Use predefined import files from wp filter: pt-ocdi/import_files.
 
@@ -244,23 +244,23 @@ class OneClickDemoImport {
 					Helpers::log_error_and_send_ajax_response(
 						$this->selected_import_files->get_error_message(),
 						$this->log_file_path,
-						esc_html__( 'Downloaded files', 'inventory' )
+						esc_html__( 'Downloaded files', 'pt-ocdi' )
 					);
 				}
 
 				// Add this message to log file.
 				$log_added = Helpers::append_to_file(
 					sprintf(
-						__( 'The import files for: %s were successfully downloaded!', 'inventory' ),
+						__( 'The import files for: %s were successfully downloaded!', 'pt-ocdi' ),
 						$this->import_files[ $this->selected_index ]['import_file_name']
 					) . Helpers::import_file_info( $this->selected_import_files ),
 					$this->log_file_path,
-					esc_html__( 'Downloaded files' , 'inventory' )
+					esc_html__( 'Downloaded files' , 'pt-ocdi' )
 				);
 			}
 			else {
 				// Send JSON Error response to the AJAX call.
-				wp_send_json( esc_html__( 'No import files specified!', 'inventory' ) );
+				wp_send_json( esc_html__( 'No import files specified!', 'pt-ocdi' ) );
 			}
 		}
 
@@ -376,8 +376,26 @@ class OneClickDemoImport {
 
 		// Display final messages (success or error messages).
 		if ( empty( $this->frontend_error_messages ) ) {
-			$response['message'] = sprintf(
-				__( '%1$s%3$sThat\'s it, all done!%4$s%2$sThe demo import has finished. Please check your page and make sure that everything has imported correctly. If it did, you can deactivate the %3$sOne Click Demo Import%4$s plugin, because it has done its job.%5$s', 'inventory' ),
+			$response['message'] = '';
+
+			if ( ! apply_filters( 'pt-ocdi/disable_pt_branding', false ) ) {
+				$twitter_status = esc_html__( 'Just used One Click Demo Import plugin and it was awesome! Thanks @ProteusThemes! https://www.proteusthemes.com/', 'pt-ocdi' );
+
+				$response['message'] .= sprintf(
+					__( '%1$s%6$sWasn\'t this a great One Click Demo Import experience?%7$s Created and maintained by %3$sProteusThemes%4$s. %2$s%5$sClick to Tweet!%4$s%8$s', 'pt-ocdi' ),
+					'<div class="notice  notice-info"><p>',
+					'<br>',
+					'<strong><a href="https://www.proteusthemes.com/" target="_blank">',
+					'</a></strong>',
+					'<strong><a href="' . add_query_arg( 'status', urlencode( $twitter_status ), 'http://twitter.com/home' ) . '" target="_blank">',
+					'<strong>',
+					'</strong>',
+					'</p></div>'
+				);
+			}
+
+			$response['message'] .= sprintf(
+				__( '%1$s%3$sThat\'s it, all done!%4$s%2$sThe demo import has finished. Please check your page and make sure that everything has imported correctly. If it did, you can deactivate the %3$sOne Click Demo Import%4$s plugin, because it has done its job.%5$s', 'pt-ocdi' ),
 				'<div class="notice  notice-success"><p>',
 				'<br>',
 				'<strong>',
@@ -388,7 +406,7 @@ class OneClickDemoImport {
 		else {
 			$response['message'] = $this->frontend_error_messages_display() . '<br>';
 			$response['message'] .= sprintf(
-				__( '%1$sThe demo import has finished, but there were some import errors.%2$sMore details about the errors can be found in this %3$s%5$slog file%6$s%4$s%7$s', 'inventory' ),
+				__( '%1$sThe demo import has finished, but there were some import errors.%2$sMore details about the errors can be found in this %3$s%5$slog file%6$s%4$s%7$s', 'pt-ocdi' ),
 				'<div class="notice  notice-warning"><p>',
 				'<br>',
 				'<strong>',
@@ -455,8 +473,17 @@ class OneClickDemoImport {
 	 * @param string $additional_value The additional value that will be appended to the existing frontend_error_messages.
 	 */
 	public function append_to_frontend_error_messages( $text ) {
-		if ( ! empty( $text ) && ! in_array( $text , $this->frontend_error_messages ) ) {
-			$this->frontend_error_messages[] = $text;
+		$lines = array();
+
+		if ( ! empty( $text ) ) {
+			$text = str_replace( '<br>', PHP_EOL, $text );
+			$lines = explode( PHP_EOL, $text );
+		}
+
+		foreach ( $lines as $line ) {
+			if ( ! empty( $line ) && ! in_array( $line , $this->frontend_error_messages ) ) {
+				$this->frontend_error_messages[] = $line;
+			}
 		}
 	}
 
@@ -471,7 +498,7 @@ class OneClickDemoImport {
 
 		if ( ! empty( $this->frontend_error_messages ) ) {
 			foreach ( $this->frontend_error_messages as $line ) {
-				$output .= nl2br( $line );
+				$output .= esc_html( $line );
 				$output .= '<br>';
 			}
 		}
@@ -484,7 +511,7 @@ class OneClickDemoImport {
 	 * Load the plugin textdomain, so that translations can be made.
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'inventory', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( 'pt-ocdi', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 
 

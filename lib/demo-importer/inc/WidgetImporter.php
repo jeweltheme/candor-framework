@@ -37,7 +37,7 @@ class WidgetImporter {
 			Helpers::append_to_file(
 				$error_message,
 				$log_file_path,
-				esc_html__( 'Importing widgets', 'inventory' )
+				esc_html__( 'Importing widgets', 'pt-ocdi' )
 			);
 		}
 		else {
@@ -49,7 +49,7 @@ class WidgetImporter {
 			$log_added = Helpers::append_to_file(
 				$message,
 				$log_file_path,
-				esc_html__( 'Importing widgets' , 'inventory' )
+				esc_html__( 'Importing widgets' , 'pt-ocdi' )
 			);
 		}
 
@@ -85,7 +85,7 @@ class WidgetImporter {
 		if ( ! file_exists( $file ) ) {
 			return new \WP_Error(
 				'widget_import_file_not_found',
-				__( 'Error: Widget import file could not be found.', 'inventory' )
+				__( 'Error: Widget import file could not be found.', 'pt-ocdi' )
 			);
 		}
 
@@ -115,7 +115,7 @@ class WidgetImporter {
 		if ( empty( $data ) || ! is_object( $data ) ) {
 			return new \WP_Error(
 				'corrupted_widget_import_data',
-				__( 'Error: Widget import data could not be read. Please try a different file.', 'inventory' )
+				__( 'Error: Widget import data could not be read. Please try a different file.', 'pt-ocdi' )
 			);
 		}
 
@@ -154,7 +154,7 @@ class WidgetImporter {
 				$sidebar_available    = false;
 				$use_sidebar_id       = 'wp_inactive_widgets'; // Add to inactive if sidebar does not exist in theme.
 				$sidebar_message_type = 'error';
-				$sidebar_message      = __( 'Sidebar does not exist in theme (moving widget to Inactive)', 'inventory' );
+				$sidebar_message      = __( 'Sidebar does not exist in theme (moving widget to Inactive)', 'pt-ocdi' );
 			}
 
 			// Result for sidebar.
@@ -175,7 +175,7 @@ class WidgetImporter {
 				if ( ! $fail && ! isset( $available_widgets[ $id_base ] ) ) {
 					$fail                = true;
 					$widget_message_type = 'error';
-					$widget_message      = __( 'Site does not support widget', 'inventory' ); // Explain why widget not imported.
+					$widget_message      = __( 'Site does not support widget', 'pt-ocdi' ); // Explain why widget not imported.
 				}
 
 				// Filter to modify settings object before conversion to array and import.
@@ -208,7 +208,7 @@ class WidgetImporter {
 						if ( in_array( "$id_base-$check_id", $sidebar_widgets ) && (array) $widget == $check_widget ) {
 							$fail                = true;
 							$widget_message_type = 'warning';
-							$widget_message      = __( 'Widget already exists', 'inventory' ); // Explain why widget not imported.
+							$widget_message      = __( 'Widget already exists', 'pt-ocdi' ); // Explain why widget not imported.
 
 							break;
 						}
@@ -266,17 +266,17 @@ class WidgetImporter {
 					// Success message.
 					if ( $sidebar_available ) {
 						$widget_message_type = 'success';
-						$widget_message      = __( 'Imported', 'inventory' );
+						$widget_message      = __( 'Imported', 'pt-ocdi' );
 					}
 					else {
 						$widget_message_type = 'warning';
-						$widget_message      = __( 'Imported to Inactive', 'inventory' );
+						$widget_message      = __( 'Imported to Inactive', 'pt-ocdi' );
 					}
 				}
 
 				// Result for widget instance.
 				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['name']         = isset( $available_widgets[ $id_base ]['name'] ) ? $available_widgets[ $id_base ]['name'] : $id_base; // Widget name or ID if name not available (not supported by site).
-				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['title']        = ! empty( $widget['title'] ) ? $widget['title'] : __( 'No Title', 'inventory' ); // Show "No Title" if widget instance is untitled.
+				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['title']        = ! empty( $widget['title'] ) ? $widget['title'] : __( 'No Title', 'pt-ocdi' ); // Show "No Title" if widget instance is untitled.
 				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['message_type'] = $widget_message_type;
 				$results[ $sidebar_id ]['widgets'][ $widget_instance_id ]['message']      = $widget_message;
 
@@ -323,7 +323,7 @@ class WidgetImporter {
 	 */
 	private static function format_results_for_log( $results ) {
 		if ( empty( $results ) ) {
-			esc_html_e( 'No results for widget import!', 'inventory' );
+			esc_html_e( 'No results for widget import!', 'pt-ocdi' );
 		}
 
 		// Loop sidebars.
