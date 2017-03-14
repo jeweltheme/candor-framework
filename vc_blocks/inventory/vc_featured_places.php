@@ -161,7 +161,7 @@ function candor_framework_inventory_featured_places_shortcode( $atts ) {
 												<li>
 													<div class="card__tag">
 														<div class="pin__icon">
-															<?php //inventory_display_image( $icon_url, '', true, $attachment_id ); ?>
+															<?php inventory_display_image( $icon_url, '', true, $attachment_id ); ?>
 														</div>
 													</div>
 												</li>

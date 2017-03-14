@@ -78,7 +78,8 @@ function candor_framework_inventory_home_slider_shortcode( $atts ) {
 	ob_start();
 
 	$home_slider1_bg = wp_get_attachment_image_src( $home_slider1_bg, 'full' );
-	
+	$counter_part = vc_param_group_parse_atts( $atts['counter_part'] );  
+	//$counter_part = vc_param_group_parse_atts( $atts['counter_part'] );  
 
 	global $post;
 
@@ -286,9 +287,9 @@ $atts = apply_filters( 'job_manager_ouput_jobs_defaut', array(
 		</div>
 	
 	<?php } elseif( $layout =="style2" ){
-		$counter_part = vc_param_group_parse_atts( $atts['counter_part'] );     	
+		   	
 		$fields_options = explode(',', $frontpage_search_fields );
-
+		
 	?>
 
 		<div class="inv-start-block ">
@@ -461,7 +462,7 @@ $atts = apply_filters( 'job_manager_ouput_jobs_defaut', array(
 											<?php } ?>
 
 											
-											<?php if ( $fields_options[1] == "location" ){ ?>
+											<?php //if ( $fields_options[1] == "location" ){ ?>
 												<div class="search_location  search-filter-wrapper">
 													<label for="search_location"><?php esc_html_e( 'Locations', 'inventory' ); ?></label>
 													<?php if ( class_exists( 'Astoundify_Job_Manager_Regions' ) && "1" === get_option('job_manager_regions_filter') ) { ?>
@@ -473,15 +474,15 @@ $atts = apply_filters( 'job_manager_ouput_jobs_defaut', array(
 														<input type="text" name="search_location" id="search_location" placeholder="<?php esc_attr_e( 'Locations', 'inventory' ); ?>" />
 													<?php } ?>
 												</div>
-											<?php } ?>
+											<?php //} ?>
 
-											<?php if ( $fields_options[2] == "categories" ){ 
+											<?php //if ( $fields_options[2] == "categories" ){ 
 						                    if ( true === $show_categories ) { ?>	
 										        <div class="search_categories  search-filter-wrapper">
 										            <label for="search_categories"><?php esc_html_e( 'Category', 'inventory' ); ?></label>
 										            <?php job_manager_dropdown_categories( array( 'taxonomy' => 'job_listing_category', 'hierarchical' => 1, 'show_option_all' => esc_html__( 'All Categories', 'inventory' ), 'name' => 'search_categories', 'orderby' => 'name', 'multiple' => false ) ); ?>
 										        </div>
-										    <?php } } ?>
+										    <?php } //} ?>
 
 
 											<?php do_action( 'job_manager_job_filters_search_jobs_end', $atts ); ?>
