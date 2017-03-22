@@ -17,7 +17,7 @@ function candor_polmo_service_box_shortcode( $atts, $content = null ) {
 
 	$output = '<div class="section-details">
 		<div class="service-details">
-			<div class="item wow animated fadeInLeft" data-wow-delay=".5s" style="border: 1px solid ' .  $bg_color. '; background-color:<?php echo $bg_color;?>">
+			<div class="item wow animated fadeInLeft" data-wow-delay=".5s" style="border: 1px solid ' .  $bg_color. '; background-color: ' . $bg_color . ';">
 				<div class="item-icon" style="color: ' .  $bg_color. '">
 					<i class="fa ' . esc_attr($service_icon). '"></i>
 				</div><!-- /.item-icon -->
@@ -28,6 +28,8 @@ function candor_polmo_service_box_shortcode( $atts, $content = null ) {
 			</div><!-- /.item -->
 		</div>
 	</div>';
+
+
 
 	return $output;
 }
