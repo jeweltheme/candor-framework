@@ -338,7 +338,19 @@ function candor_framework_events_shortcode( $atts ) {
 
 
 <?php
-      add_action('wp_footer', 'elevation_events_countdown_script');
+ 
+
+	
+	$output = ob_get_contents();
+	ob_end_clean();
+	
+	return $output;
+}
+add_shortcode( 'elevation_events', 'candor_framework_events_shortcode' );
+
+
+
+     add_action('wp_footer', 'elevation_events_countdown_script');
       function elevation_events_countdown_script(){
 
         $elevation_events_args1 = array (
@@ -401,14 +413,6 @@ function candor_framework_events_shortcode( $atts ) {
          <?php
       }
 
-
-	
-	$output = ob_get_contents();
-	ob_end_clean();
-	
-	return $output;
-}
-add_shortcode( 'elevation_events', 'candor_framework_events_shortcode' );
 
 
 /**
