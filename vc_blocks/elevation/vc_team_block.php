@@ -113,6 +113,7 @@ function candor_team_shortcode_vc() {
 					"type" => "dropdown",
 					"heading" => __("Style", 'elevation'),
 					"param_name" => "style",
+					'std' => 'default',
 					"value" => array(
 						'Default Style' 	=> 'default',
 						'Grid Style' 		=> 'grid'

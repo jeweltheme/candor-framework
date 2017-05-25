@@ -19,8 +19,6 @@ function candor_framework_events_shortcode( $atts ) {
 
 	ob_start();
 
-  global $post;
-
 ?>
 
 
@@ -33,7 +31,7 @@ function candor_framework_events_shortcode( $atts ) {
             <div class="container">
 
               <div class="section-top">
-                <h2 class="section-sub-title"><?php echo strip_tags( $title );?></h2><!-- /.section-title -->
+                <h2 class="section-sub-title"><?php echo strip_tags(trim($title));?></h2><!-- /.section-title -->
               </div><!-- /.section-top -->
               <div class="row">
                 <div class="section-details">
@@ -41,36 +39,18 @@ function candor_framework_events_shortcode( $atts ) {
                   <div class="col-md-5">
                     <div class="events-banner">
                       <?php 
-
+                      //$causes1 = candor_get_custom_posts("events", 2, "DESC");
                       $do_not_duplicate = array();
-
-                      //$today = getdate();
-                      
-                      $today = getdate();
-                      $d = $today['mday'];
-                      $m = $today['mon'];
-                      $y = $today['year'];
-                      $today_date = "$y-$m-$d";
-
                       $args = array(
-                        'post_type' => 'events',
-                        'post_status' => 'publish',
-                        'posts_per_page' => '2',
-                        'meta_query' => array(
-                          array(
-                            'key' => '_elevation_event_date',
-                            'compare' => '>=',
-                            'value' => $today,
-                            )
-                          ),
-                        'meta_key' => '_elevation_event_date',
-                        'orderby' => 'meta_value',
-                        'order' => 'ASC',
-                        'paged' => ( get_query_var('paged') ? get_query_var('paged') : 1 ),
+                        'posts_per_page'   => 2,                        
+                        'order'            => 'ASC',                          
+                        'meta_key'         => '_elevation_event_date',                          
+                        'orderby'          => 'meta_value',
+                        // 'orderby'          => 'date',
+                        // 'order'            => 'DESC',
+                        'post_type'        => 'events'
                         );
-
                       $causes1 = get_posts( $args );
-
                       $i = 1;
                       foreach ($causes1 as $key =>$post) {
                         setup_postdata($post);
@@ -90,8 +70,6 @@ function candor_framework_events_shortcode( $atts ) {
                         $do_not_duplicate[] = $post->ID;
 
 
-                        $post_date = get_the_date();
-                        $post_date = strtotime( $post_date );                        
                         ?>
 
                           <div class="banner-item">
@@ -171,29 +149,20 @@ function candor_framework_events_shortcode( $atts ) {
 
 
                         <?php 
-                        $do_not_duplicate = array();
-                        $today = current_time('d M, y');
 
-                        $causes2 = array(
-                          'post_type' => 'events',
-                          'post_status' => 'publish',
-                          'offset'                 => 2,
+                        $do_not_duplicate = array();
+
+                        $causes2 = array (
+                          'post_type'              => 'events',
                           'posts_per_page'         => 3,
                           'post__not_in'           => $do_not_duplicate,
-                          'meta_query' => array(
-                            array(
-                              'key' => '_elevation_event_date',
-                              'compare' => '>=',
-                              'value' => $today,
-                              )
-                            ),
-                          'meta_key' => '_elevation_event_date',
-                          'orderby' => 'meta_value',
-                          'order' => 'ASC',
-                          'paged' => ( get_query_var('paged') ? get_query_var('paged') : 1 ),
-                         );
+                          'offset'                 => '2',
 
+                          'order'            => 'ASC',                          
+                          'meta_key'         => '_elevation_event_date',                          
+                          'orderby'          => 'meta_value',
 
+                          ); 
                         $events_query2 = new WP_Query( $causes2 ); 
 
                         $i=1;
@@ -346,24 +315,9 @@ function candor_framework_events_shortcode( $atts ) {
 
 
 <?php
- 
+      add_action('wp_footer', 'elevation_events_countdown_script', 100, 2);
+      function elevation_events_countdown_script(){
 
-	add_action('wp_footer', 'elevation_events_countdown_script', 100,2);
-  
-	$output = ob_get_contents();
-	ob_end_clean();
-	
-	return $output;
-}
-add_shortcode( 'elevation_events', 'candor_framework_events_shortcode' );
-
-
-
-  
-
-
-  function elevation_events_countdown_script(){
-      if ( is_front_page() ) {
         $elevation_events_args1 = array (
             'post_type'              => 'events',
           ); 
@@ -375,7 +329,7 @@ add_shortcode( 'elevation_events', 'candor_framework_events_shortcode' );
 
       ?>
         <script type="text/javascript">
-          jQuery(document).ready(function($) {
+          jQuery(document).ready(function() {
             "use strict";
 
         <?php
@@ -394,10 +348,8 @@ add_shortcode( 'elevation_events', 'candor_framework_events_shortcode' );
             setup_postdata($post);
 
               $event_date = get_post_meta( $post->ID, '_elevation_event_date',true );
-              $event_start        = get_post_meta( $post->ID, '_elevation_event_start',true );
 
               $newdate = date_parse($event_date); 
-              $event_start_time = date_parse($event_start); 
           ?>
 
 
@@ -407,9 +359,9 @@ add_shortcode( 'elevation_events', 'candor_framework_events_shortcode' );
                 'day':    <?php echo $newdate['day']; ?>,
                 'month':  <?php echo $newdate['month']; ?>,
                 'year':   <?php echo $newdate['year']; ?>,
-                'hour':   <?php echo $event_start_time['hour']; ?>,
-                'min':    <?php echo $event_start_time['minute']; ?>,
-                'sec':    <?php echo $event_start_time['second']; ?>
+                'hour':   <?php echo $newdate['hour']; ?>,
+                'min':    <?php echo $newdate['minute']; ?>,
+                'sec':    <?php echo $newdate['second']; ?>
               },
               omitWeeks: true
             });
@@ -423,7 +375,15 @@ add_shortcode( 'elevation_events', 'candor_framework_events_shortcode' );
          </script>
          <?php
       }
+
+
+	
+	$output = ob_get_contents();
+	ob_end_clean();
+	
+	return $output;
 }
+add_shortcode( 'elevation_events', 'candor_framework_events_shortcode' );
 
 
 /**

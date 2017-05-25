@@ -23,7 +23,7 @@ function candor_donate_box_shortcode( $atts, $content = null ) {
 	                    <div class="item-icon">
 	                      <i class="icon '. esc_attr($donate_icon) .'"></i>
 	                    </div><!-- /.item-icon -->
-	                    <h4 class="item-title">'. strip_tags(trim($donate_title)) .'</h4><!-- /.item-title -->
+	                    <h4 class="item-title">'. strip_tags($donate_title ) .'</h4><!-- /.item-title -->
 	                    <p class="item-description">'. wpb_js_remove_wpautop(do_shortcode(htmlspecialchars_decode($content))) .'</p><!-- /.item-description -->
 	                    <div class="btn-container">
 	                      <a href="'. esc_url_raw($donate_button_url) .'" class="btn btn-xsm">'. esc_attr($donate_button_title) .'</a>

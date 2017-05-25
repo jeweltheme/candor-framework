@@ -71,7 +71,7 @@ function candor_vc_home_gallery_block_shortcode( $atts, $content = null ) {
               <?php 
               $category = get_terms( 'portfolio_category' );
               foreach ($category as $cat) { 
-                echo '<a href="#" data-filter=".'.trim($cat->slug).'">'.$cat->name.'</a>';
+                echo '<a href="#" data-filter=".'. $cat->slug .'">'.$cat->name.'</a>';
               } ?> 
 
             </div> <!-- /.galleryFilter -->

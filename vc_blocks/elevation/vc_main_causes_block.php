@@ -141,7 +141,7 @@ function candor_framework_main_causes_shortcode_vc() {
 				),
 				array(
 					'type' => 'textfield',
-					'heading' => esc_html__( 'Causes Category', 'elevation' ),
+					'heading' => esc_html__( 'Causes Category Name', 'elevation' ),
 					'param_name' => 'causes_category',
 					'value'		  => '',
 					'description' => esc_html__( 'List of Causes categories', 'elevation' ),

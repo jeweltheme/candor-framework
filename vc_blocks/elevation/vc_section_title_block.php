@@ -15,8 +15,8 @@ function candor_framework_section_title_shortcode( $atts, $content = null ) {
 	
 	$output = '<div class="text-center ">
 					<div class="section-top">
-						<h2 class="section-title">'. strip_tags(trim($title)) .'</h2>
-						<p class="section-description">'. strip_tags(trim($subtitle)) .'</p>
+						<h2 class="section-title">'. strip_tags( $title ) .'</h2>
+						<p class="section-description">'. strip_tags( $subtitle ) .'</p>
 					</div>
 
 					<div class="section-border">

@@ -26,6 +26,7 @@ function candor_blog_shortcode( $atts ) {
 	$query_args = array(
 		'post_type' => 'post',
 		'posts_per_page' => $pppage,
+		'ignore_sticky_posts' => true,
 		'paged' => $paged
 	);
 	

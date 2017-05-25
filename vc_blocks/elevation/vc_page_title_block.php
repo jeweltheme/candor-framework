@@ -13,7 +13,7 @@ function candor_framework_elevation_page_title_shortcode( $atts, $content = null
 		) 
 	);
 	
-	$output = elevation_page_title( strip_tags(trim($title)), strip_tags(trim($subtitle)) );
+	$output = elevation_page_title( strip_tags( $title ), strip_tags( $subtitle ) );
 	
 	return $output;
 }

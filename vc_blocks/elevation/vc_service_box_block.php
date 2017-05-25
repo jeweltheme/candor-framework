@@ -10,6 +10,7 @@ function candor_service_box_shortcode( $atts, $content = null ) {
 				'type' 				=> 'service_box',
 				'title' 			=> 'Volunteering',
 				'service_icon' 		=> 'fa fa-bullhorn',
+				//'image_icon' 		=> get_template_directory_uri() . '/images/testimonial.png',
 				'service_content' 	=> 'Our volunteers believe that they have to work free. They always fell happy to do something for the world',
 				'bg_color' 			=> '#f39c12',
 			), $atts 
@@ -29,10 +30,21 @@ function candor_service_box_shortcode( $atts, $content = null ) {
               <div class="row">
                 <div class="about-details text-center">
 
-                	<?php foreach ($service_box as $key => $value ) { ?>
+                	<?php foreach ($service_box as $key => $value ) {
+                		$image_icon = wp_get_attachment_image_src( $value['image_icon'], array( 50,50 ) );
+                	 ?>
 	                  <div class="col-sm-4">
 	                    <div class="item text-center <?php echo esc_attr( $value['service_icon'] );?>" style="background-color:<?php echo esc_attr( $value['bg_color'] );?>">
-	                      <div class="item-icon"><i class="<?php echo esc_attr( $value['service_icon'] );?>"></i></div>
+	                      
+
+	                      <div class="item-icon">
+		                      <?php if( $value['type'] === "default" ){ ?>
+		                      	<i class="<?php echo esc_attr( $value['service_icon'] );?>"></i>
+		                      <?php } else if( $value['type'] === "cutom_icon" ){ ?>
+		                      	<img src="<?php echo $image_icon[0]; ?>">
+		                      <?php } ?>
+	                      </div>
+
 	                      <h4 class="item-title"><?php echo esc_attr( $value['title'] );?></h4>
 	                      <p class="description"><?php echo esc_attr( $value['service_content'] );?> </p>
 	                    </div>
@@ -80,6 +92,17 @@ function candor_service_box_shortcode_vc() {
 	                // Note params is mapped inside param-group:
 					'params' => array(
 
+						array( 
+							'param_name' => 'type', 
+							'heading' => __( 'Testimonial Type', 'elevation'), 
+							'type' => 'dropdown', 
+							'admin_label' => true, 
+							'std' => 'default', 
+							'value' => array( 
+								__( 'Font Awesome Icon', 'elevation') 		=> 'default', 
+								__( 'Image Icon', 'elevation') => 'cutom_icon' ) 
+							), 
+
 							array(
 								'type'         => 'iconpicker',
 								'heading'      => esc_html__( 'Icon', 'elevation' ),
@@ -89,8 +112,24 @@ function candor_service_box_shortcode_vc() {
 										           'emptyIcon'    => false, // default true, display an "EMPTY" icon?
 										           'iconsPerPage' => 100, // default 100, how many icons per/page to display
 										           ),
+								'dependency' => array( 
+									'element' => "type", 
+									'value' => array( 'default')
+									), 
 								'description'  => esc_html__( 'Select icon from library.', 'elevation' ),
 								),
+							array( 
+								'type' => 'attach_image', 
+								'heading' => __( 'Image Icon', 'elevation'), 
+								'param_name' => 'image_icon',
+								'value' => get_template_directory_uri() . '/images/testimonial.png',
+								'dependency' => array( 
+									'element' => "type", 
+									'value' => array( 'cutom_icon')
+									), 
+								'description' => __( 'Select Custom Icon from media library', 'elevation') 
+								), 
+
 							array(
 								"type" => "textfield",
 								"heading" => esc_html__("Title", 'elevation'),
