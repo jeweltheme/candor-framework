@@ -7,7 +7,7 @@ function candor_framework_shopaholic_partners_shortcode( $atts ) {
 	extract( 
 		shortcode_atts( 
 			array(
-				'images'	 		=> SHOPAHOLIC_PATH . '/images//brand/1.png',
+				'images'	 		=> get_template_directory_uri() . '/images//brand/1.png',
 				'style'				=> 'style1'
 			), $atts 
 		) 
@@ -85,7 +85,7 @@ function candor_framework_shopaholic_partners_shortcode_vc() {
 					'type' => 'attach_images',
 					'heading' => esc_html__( 'Partner Images', 'shopaholic-wp' ),
 					'param_name' => 'images',
-					'value' => SHOPAHOLIC_PATH . '/images//brand/1.png',
+					'value' => get_template_directory_uri() . '/images//brand/1.png',
 					"admin_label" => true,
 					'description' => esc_html__( 'Select images from media library.', 'shopaholic-wp' )
 					),

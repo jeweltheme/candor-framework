@@ -14,7 +14,7 @@ function candor_framework_shopaholic_service_inspire_shortcode( $atts ) {
 				'btn_1_link'	=> '#',
 				'btn_2_text'	=> 'Contact Us',
 				'btn_2_link'	=> '#',
-				'bg_image'		=> SHOPAHOLIC_PATH . '/images/service/parallax.jpg',
+				'bg_image'		=> get_template_directory_uri() . '/images/service/parallax.jpg',
 			), $atts 
 		) 
 	);
@@ -110,7 +110,7 @@ function candor_framework_shopaholic_service_inspire_shortcode_vc() {
 					'type' => 'attach_image',
 					'heading' => esc_html__( 'Background Image', 'shopaholic-wp' ),
 					'param_name' => 'bg_image',
-					'value' => SHOPAHOLIC_PATH . '/images/service/parallax.jpg',
+					'value' => get_template_directory_uri() . '/images/service/parallax.jpg',
 					"admin_label" => true,
 					'description' => esc_html__( 'Select images from media library.', 'shopaholic-wp' )
 					),

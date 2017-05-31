@@ -9,7 +9,7 @@ function candor_framework_shopaholic_testimonial_shortcode( $atts ) {
 			array(
 				'type' 				=> 'default',
 				'testimonial_posts' => '5',
-				'bg_image' 			=> SHOPAHOLIC_PATH . '/images/testimonial.png',
+				'bg_image' 			=> get_template_directory_uri() . '/images/testimonial.png',
 				'filter'	 		=> 'all'
 			), $atts 
 		) 
@@ -146,7 +146,7 @@ function candor_framework_shopaholic_testimonial_shortcode_vc() {
 					'type' => 'attach_image', 
 					'heading' => __( 'Background', 'shopaholic-wp'), 
 					'param_name' => 'bg_image',
-					'value' => SHOPAHOLIC_PATH . '/images/testimonial.png',
+					'value' => get_template_directory_uri() . '/images/testimonial.png',
 					'dependency' => array( 
 									'element' => "type", 
 									'value' => array( 'left_bg')

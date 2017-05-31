@@ -8,15 +8,15 @@ function candor_framework_shopaholic_collection_shortcode( $atts ) {
 		shortcode_atts( 
 			array(
 
-				'collection_img_1'		=> SHOPAHOLIC_PATH . '/images/home01/thumb/1.png',
+				'collection_img_1'		=> get_template_directory_uri() . '/images/home01/thumb/1.png',
 				'collection_img_text_1'	=> 'Kids',
 				'collection_img_link_1'	=> '#',
 
-				'collection_img_2'		=> SHOPAHOLIC_PATH . '/images/home01/thumb/2.png',
+				'collection_img_2'		=> get_template_directory_uri() . '/images/home01/thumb/2.png',
 				'collection_img_text_2'	=> 'Men',
 				'collection_img_link_2'	=> '#',
 
-				'collection_img_3'		=> SHOPAHOLIC_PATH . '/images/home01/thumb/3.png',
+				'collection_img_3'		=> get_template_directory_uri() . '/images/home01/thumb/3.png',
 				'collection_img_text_3'	=> 'Women',
 				'collection_img_link_3'	=> '#',
 
@@ -111,7 +111,7 @@ function candor_framework_shopaholic_collection_shortcode_vc() {
 					'type' => 'attach_image',
 					'heading' => esc_html__( 'Collection Image 1', 'shopaholic-wp' ),
 					'param_name' => 'collection_img_1',
-					'value' => SHOPAHOLIC_PATH . '/images/home01/thumb/1.png',
+					'value' => get_template_directory_uri() . '/images/home01/thumb/1.png',
 					"admin_label" => true,
 					'description' => esc_html__( 'Select images from media library.', 'shopaholic-wp' )
 				),
@@ -134,7 +134,7 @@ function candor_framework_shopaholic_collection_shortcode_vc() {
 					'type' => 'attach_image',
 					'heading' => esc_html__( 'Collection Image 2', 'shopaholic-wp' ),
 					'param_name' => 'collection_img_2',
-					'value' => SHOPAHOLIC_PATH . '/images/home01/thumb/2.png',
+					'value' => get_template_directory_uri() . '/images/home01/thumb/2.png',
 					"admin_label" => true,
 					'description' => esc_html__( 'Select images from media library.', 'shopaholic-wp' )
 				),
@@ -157,7 +157,7 @@ function candor_framework_shopaholic_collection_shortcode_vc() {
 					'type' => 'attach_image',
 					'heading' => esc_html__( 'Collection Image 3', 'shopaholic-wp' ),
 					'param_name' => 'collection_img_3',
-					'value' => SHOPAHOLIC_PATH . '/images/home01/thumb/3.png',
+					'value' => get_template_directory_uri() . '/images/home01/thumb/3.png',
 					"admin_label" => true,
 					'description' => esc_html__( 'Select images from media library.', 'shopaholic-wp' )
 				),

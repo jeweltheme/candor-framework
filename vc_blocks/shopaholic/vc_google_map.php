@@ -10,7 +10,7 @@ function candor_framework_shopaholic_contact_map_shortcode( $atts, $content = nu
 				'lattitude' 		=> '-37.834812',
 				'longitude' 		=> '144.963055',
 				'zoom' 				=> '15',
-				'map_icon' 			=> SHOPAHOLIC_PATH . '/images/map-icon.png',
+				'map_icon' 			=> get_template_directory_uri() . '/images/map-icon.png',
 	
 			), $atts 
 		) 
@@ -122,7 +122,7 @@ function candor_framework_shopaholic_contact_map_shortcode_vc() {
 					'type' => 'attach_image',
 					'heading' => esc_html__( 'MAP Icon', 'shopaholic-wp' ),
 					'param_name' => 'map_icon',
-					'value' => SHOPAHOLIC_PATH . '/images/map-icon.png',
+					'value' => get_template_directory_uri() . '/images/map-icon.png',
 					"admin_label" => true,
 					'description' => esc_html__( 'Select image from media library.', 'shopaholic-wp' )
 					),			

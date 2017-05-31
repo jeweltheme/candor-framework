@@ -11,7 +11,7 @@ function candor_framework_shopaholic_discount_shortcode( $atts ) {
 				'type' => "style1",
 				
 				// Style 2				
-				'discount_img_style_2'		=> SHOPAHOLIC_PATH . '/images/home01/1.png',
+				'discount_img_style_2'		=> get_template_directory_uri() . '/images/home01/1.png',
 				'discount_mini_title'		=> 'End of the season',
 				'discount_title'			=> 'Don\'t be late',
 				'discount_btn_text'			=> 'Shop Now',
@@ -19,11 +19,11 @@ function candor_framework_shopaholic_discount_shortcode( $atts ) {
 
 
 				// Style 1
-				'discount_img_1'		=> SHOPAHOLIC_PATH . '/images/home01/1.png',
+				'discount_img_1'		=> get_template_directory_uri() . '/images/home01/1.png',
 				'discount_img_text_1'	=> '<span>45%</span> discount',
 				'discount_img_link_1'	=> '#',
 
-				'discount_img_2'		=> SHOPAHOLIC_PATH . '/images/home01/2.png',
+				'discount_img_2'		=> get_template_directory_uri() . '/images/home01/2.png',
 				'discount_img_text_2'	=> '<span>New</span> collection',
 				'discount_img_link_2'	=> '#',
 
@@ -142,7 +142,7 @@ function candor_framework_shopaholic_discount_shortcode_vc() {
 							'type' => 'attach_image',
 							'heading' => esc_html__( 'Discount Image', 'shopaholic-wp' ),
 							'param_name' => 'discount_img_style_2',
-							'value' => SHOPAHOLIC_PATH . '/images/home01/1.png',
+							'value' => get_template_directory_uri() . '/images/home01/1.png',
 							"admin_label" => true,
 							'dependency' => array( 
 								'element' => "type", 
@@ -203,7 +203,7 @@ function candor_framework_shopaholic_discount_shortcode_vc() {
 							'type' => 'attach_image',
 							'heading' => esc_html__( 'Discount Image 1', 'shopaholic-wp' ),
 							'param_name' => 'discount_img_1',
-							'value' => SHOPAHOLIC_PATH . '/images/home01/1.png',
+							'value' => get_template_directory_uri() . '/images/home01/1.png',
 							"admin_label" => true,
 							'dependency' => array( 
 								'element' => "type", 
@@ -236,7 +236,7 @@ function candor_framework_shopaholic_discount_shortcode_vc() {
 							'type' => 'attach_image',
 							'heading' => esc_html__( 'Discount Image 2', 'shopaholic-wp' ),
 							'param_name' => 'discount_img_2',
-							'value' => SHOPAHOLIC_PATH . '/images/home01/2.png',
+							'value' => get_template_directory_uri() . '/images/home01/2.png',
 							"admin_label" => true,
 							'dependency' => array( 
 								'element' => "type", 
