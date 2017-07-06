@@ -11,6 +11,9 @@ $defaults = array(
 	'candor_shortcodes'      => '0',
 	'candor_widgets'         => '0',
 	'portfolio_post_type'    => '0',
+	'video_post_type'    	 => '0',
+	'movie_post_type'    	 => '0',
+	'imdb_post_type'    	 => '0',
 	'pricing_post_type'    	 => '0',
 	'team_post_type'         => '0',
 	'client_post_type'       => '0',
@@ -67,6 +70,11 @@ $defaults = array(
 	'inventory_widgets'		=> '0',
 	'inventory_vc_blocks'	=> '0',
 	'inventory_shortcodes'	=> '0',
+
+	//VideoStories
+	'videostories_widgets'		=> '0',
+	'videostories_vc_blocks'	=> '0',
+	'videostories_shortcodes'	=> '0',
 
 
 );
@@ -221,6 +229,17 @@ if( '1' == $candor_options['inventory_shortcodes'] ){
 
 
 /**
+ * Register appropriate VideoStories Necessary Files
+ */
+if( '1' == $candor_options['videostories_widgets'] ){
+	require_once( CANDOR_FRAMEWORK_PATH . 'widgets/videostories-widgets.php' );	
+}
+if( '1' == $candor_options['videostories_shortcodes'] ){
+	require_once( CANDOR_FRAMEWORK_PATH . 'themes/videostories-shortcodes.php' );	
+}
+
+
+/**
  * Turn on the image resizer.
  * The resizer file has a class exists check to avoid conflicts
  */
@@ -234,10 +253,13 @@ if( '1' == $candor_options['aq_resizer'] ){
  * Grab our custom metaboxes class
  */
 if( '1' == $candor_options['cmbmetaboxes'] ){
-	// require_once( CANDOR_FRAMEWORK_PATH . 'metaboxes/init.php' );
-	// require_once( CANDOR_FRAMEWORK_PATH . 'metaboxes/metabox.php' );
-	 require_once( CANDOR_FRAMEWORK_PATH . 'cmb/metaboxes.php' );
 
+	if ( file_exists(  CANDOR_FRAMEWORK_PATH. '/cmb/metabox.php' ) ) {
+		require_once  CANDOR_FRAMEWORK_PATH . '/cmb/metabox.php';
+	} 
+	elseif ( file_exists(  CANDOR_FRAMEWORK_PATH . '/cmb/init.php' ) ) {
+		require_once  CANDOR_FRAMEWORK_PATH . '/cmb/init.php';
+	}
 
 }
 
@@ -295,6 +317,33 @@ if( '1' == $candor_options['options'] ){
 if( '1' == $candor_options['portfolio_post_type'] ){
 	add_action( 'init', 'candor_framework_register_portfolio', 10 );
 	add_action( 'init', 'candor_framework_create_portfolio_taxonomies', 10  );
+}
+
+/**
+ * Register Video Post Type
+ */
+if( '1' == $candor_options['video_post_type'] ){
+	add_action( 'init', 'candor_framework_register_video', 10 );
+	add_action( 'init', 'candor_framework_create_video_category_taxonomies', 10  );
+	add_action( 'init', 'candor_framework_create_video_tag_taxonomies', 10  );
+}
+
+/**
+ * Register Movie Post Type
+ */
+if( '1' == $candor_options['movie_post_type'] ){
+	add_action( 'init', 'candor_framework_register_movie', 10 );
+	add_action( 'init', 'candor_framework_create_movie_category_taxonomies', 10  );
+	add_action( 'init', 'candor_framework_create_movie_tag_taxonomies', 10  );
+}
+
+/**
+ * Register IMDb Movie Post Type
+ */
+if( '1' == $candor_options['imdb_post_type'] ){
+	add_action( 'init', 'candor_framework_register_imdb_movie', 10 );
+	add_action( 'init', 'candor_framework_create_imdb_movie_category_taxonomies', 10  );
+	add_action( 'init', 'candor_framework_create_imdb_movie_tag_taxonomies', 10  );
 }
 
 /**
@@ -674,5 +723,42 @@ if( '1' == $candor_options['inventory_vc_blocks'] ){
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_service_block.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_callout_block.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_partners_block.php' );
+	
+}
+
+
+/*
+* Register Appropriate Shortcodes for Videostories
+*/
+if( '1' == $candor_options['videostories_vc_blocks'] ){
+
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/section-title.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/contact-map.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/contact-details.php' );	
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/slider-layout-one-four.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/slider-layout-two-five.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/slider-layout-three-six.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/top-videos.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/trending-videos.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/recent-videos.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/category-videos.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/staff-picks.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/blog.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/weekly-top.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/video-playlist.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/latest-videos.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/viral-videos.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/most-viewed-videos.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/most-liked-videos.php' );
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/exclusive-video.php' );
+
+	// Movie
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/movie-slider.php' );	
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/movie-category.php' );	
+	
+	//IMDb	
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/imdb-slider.php' );	
+	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/imdb-category.php' );	
+		
 	
 }
