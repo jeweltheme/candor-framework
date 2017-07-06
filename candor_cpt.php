@@ -134,6 +134,314 @@ function candor_framework_create_portfolio_taxonomies(){
 }
 
 
+// Video
+function candor_framework_register_video() {
+
+	$displays = get_option('candor_framework_cpt_display_options');
+
+	if( $displays['video_slug'] ){ $slug = $displays['video_slug']; } else { $slug = 'video'; }
+
+	$labels = array( 
+		'name' => __( 'Videos', 'candor' ),
+		'singular_name' => __( 'Video', 'candor' ),
+		'add_new' => __( 'Add New', 'candor' ),
+		'add_new_item' => __( 'Add New Video', 'candor' ),
+		'edit_item' => __( 'Edit Video', 'candor' ),
+		'new_item' => __( 'New Video', 'candor' ),
+		'view_item' => __( 'View Video', 'candor' ),
+		'search_items' => __( 'Search Videos', 'candor' ),
+		'not_found' => __( 'No Videos found', 'candor' ),
+		'not_found_in_trash' => __( 'No Videos found in Trash', 'candor' ),
+		'parent_item_colon' => __( 'Parent Video:', 'candor' ),
+		'menu_name' => __( 'Videos', 'candor' ),
+		);
+
+	$args = array( 
+		'labels' => $labels,
+		'hierarchical' => false,
+		'description' => __('Video entries for the candor Theme.', 'candor'),
+		'supports' => array( 'title', 'editor', 'thumbnail', 'author', 'comments'),
+		'taxonomies' => array( 'video-category' ),
+		'public' => true,
+		'show_ui' => true,
+		'show_in_menu' => true,
+		'menu_position' => 20,
+		'menu_icon' => 'dashicons-video-alt3',
+
+		'show_in_nav_menus' => true,
+		'publicly_queryable' => true,
+		'exclude_from_search' => false,
+		'has_archive' => true,
+		'query_var' => true,
+		'can_export' => true,
+		'rewrite' => array( 'slug' => 'videos' ),
+		'capability_type' => 'post'
+		);
+
+	register_post_type( 'video', $args );
+}
+
+
+
+
+function candor_framework_create_video_category_taxonomies(){
+	$labels = array(
+		'name' => _x( 'Video Categories','candor' ),
+		'singular_name' => _x( 'Video Category','candor' ),
+		'search_items' =>  __( 'Search Video Categories','candor' ),
+		'all_items' => __( 'All Video Categories','candor' ),
+		'parent_item' => __( 'Parent Video Category','candor' ),
+		'parent_item_colon' => __( 'Parent Video Category:','candor' ),
+		'edit_item' => __( 'Edit Video Category','candor' ), 
+		'update_item' => __( 'Update Video Category','candor' ),
+		'add_new_item' => __( 'Add New Video Category','candor' ),
+		'new_item_name' => __( 'New Video Category Name','candor' ),
+		'menu_name' => __( 'Video Categories','candor' ),
+		); 	
+	register_taxonomy('video_category', array('video'), array(
+		'hierarchical' => true,
+		'labels' => $labels,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'query_var' => true,
+		'rewrite' => true,
+		));
+}
+
+function candor_framework_create_video_tag_taxonomies(){
+	$labels = array(
+		'name' => _x( 'Video Tags','candor' ),
+		'singular_name' => _x( 'Video Tag','candor' ),
+		'search_items' =>  __( 'Search Video Tags','candor' ),
+		'all_items' => __( 'All Video Tags','candor' ),
+		'parent_item' => __( 'Parent Video Tag','candor' ),
+		'parent_item_colon' => __( 'Parent Video Tag:','candor' ),
+		'edit_item' => __( 'Edit Video Tag','candor' ), 
+		'update_item' => __( 'Update Video Tag','candor' ),
+		'add_new_item' => __( 'Add New Video Tag','candor' ),
+		'new_item_name' => __( 'New Video Tag Name','candor' ),
+		'menu_name' => __( 'Video Tags','candor' ),
+		); 	
+	register_taxonomy('video_tag', array('video'), array(
+		'hierarchical' => false,
+		'labels' => $labels,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'query_var' => true,
+		'rewrite' => true,
+		));
+}
+
+
+
+
+
+// Movie
+
+function candor_framework_register_movie() {
+
+	$displays = get_option('candor_framework_cpt_display_options');
+
+	if( $displays['movie_slug'] ){ $slug = $displays['movie_slug']; } else { $slug = 'movie'; }
+
+	$labels = array( 
+		'name' => __( 'Movies', 'candor' ),
+		'singular_name' => __( 'Movie', 'candor' ),
+		'add_new' => __( 'Add New', 'candor' ),
+		'add_new_item' => __( 'Add New Movie', 'candor' ),
+		'edit_item' => __( 'Edit Movie', 'candor' ),
+		'new_item' => __( 'New Movie', 'candor' ),
+		'view_item' => __( 'View Movie', 'candor' ),
+		'search_items' => __( 'Search Movies', 'candor' ),
+		'not_found' => __( 'No Movies found', 'candor' ),
+		'not_found_in_trash' => __( 'No Movies found in Trash', 'candor' ),
+		'parent_item_colon' => __( 'Parent Movie:', 'candor' ),
+		'menu_name' => __( 'Movies', 'candor' ),
+		);
+
+	$args = array( 
+		'labels' => $labels,
+		'hierarchical' => false,
+		'description' => __('Movie entries for the candor Theme.', 'candor'),
+		'supports' => array( 'title', 'editor', 'thumbnail', 'author', 'comments'),
+		'taxonomies' => array( 'video-category' ),
+		'public' => true,
+		'show_ui' => true,
+		'show_in_menu' => true,
+		'menu_position' => 20,
+		'menu_icon' => 'dashicons-video-alt',
+
+		'show_in_nav_menus' => true,
+		'publicly_queryable' => true,
+		'exclude_from_search' => false,
+		'has_archive' => true,
+		'query_var' => true,
+		'can_export' => true,
+		'rewrite' => array( 'slug' => $slug ),
+		'capability_type' => 'post'
+		);
+
+	register_post_type( 'movie', $args );
+}
+
+
+
+
+function candor_framework_create_movie_category_taxonomies(){
+	$labels = array(
+		'name' => _x( 'Movie Categories','candor' ),
+		'singular_name' => _x( 'Movie Category','candor' ),
+		'search_items' =>  __( 'Search Movie Categories','candor' ),
+		'all_items' => __( 'All Movie Categories','candor' ),
+		'parent_item' => __( 'Parent Movie Category','candor' ),
+		'parent_item_colon' => __( 'Parent Movie Category:','candor' ),
+		'edit_item' => __( 'Edit Movie Category','candor' ), 
+		'update_item' => __( 'Update Movie Category','candor' ),
+		'add_new_item' => __( 'Add New Movie Category','candor' ),
+		'new_item_name' => __( 'New Movie Category Name','candor' ),
+		'menu_name' => __( 'Movie Categories','candor' ),
+		); 	
+	register_taxonomy('movie_category', array('movie'), array(
+		'hierarchical' => true,
+		'labels' => $labels,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'query_var' => true,
+		'rewrite' => true,
+		));
+}
+
+function candor_framework_create_movie_tag_taxonomies(){
+	$labels = array(
+		'name' => _x( 'Movie Tags','candor' ),
+		'singular_name' => _x( 'Movie Tag','candor' ),
+		'search_items' =>  __( 'Search Movie Tags','candor' ),
+		'all_items' => __( 'All Movie Tags','candor' ),
+		'parent_item' => __( 'Parent Movie Tag','candor' ),
+		'parent_item_colon' => __( 'Parent Movie Tag:','candor' ),
+		'edit_item' => __( 'Edit Movie Tag','candor' ), 
+		'update_item' => __( 'Update Movie Tag','candor' ),
+		'add_new_item' => __( 'Add New Movie Tag','candor' ),
+		'new_item_name' => __( 'New Movie Tag Name','candor' ),
+		'menu_name' => __( 'Movie Tags','candor' ),
+		); 	
+	register_taxonomy('movie_tag', array('movie'), array(
+		'hierarchical' => false,
+		'labels' => $labels,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'query_var' => true,
+		'rewrite' => true,
+		));
+}
+
+
+
+
+
+
+
+// IMDb
+
+function candor_framework_register_imdb_movie() {
+
+	$displays = get_option('candor_framework_cpt_display_options');
+
+	if( $displays['imdb_slug'] ){ $slug = $displays['imdb_slug']; } else { $slug = 'imdb'; }
+
+	$labels = array( 
+		'name' => __( 'IMDb', 'candor' ),
+		'singular_name' => __( 'IMDb', 'candor' ),
+		'add_new' => __( 'Add New', 'candor' ),
+		'add_new_item' => __( 'Add New IMDb', 'candor' ),
+		'edit_item' => __( 'Edit IMDb', 'candor' ),
+		'new_item' => __( 'New IMDb', 'candor' ),
+		'view_item' => __( 'View IMDb', 'candor' ),
+		'search_items' => __( 'Search IMDb', 'candor' ),
+		'not_found' => __( 'No IMDb found', 'candor' ),
+		'not_found_in_trash' => __( 'No IMDb found in Trash', 'candor' ),
+		'parent_item_colon' => __( 'Parent IMDb:', 'candor' ),
+		'menu_name' => __( 'IMDb', 'candor' ),
+		);
+
+	$args = array( 
+		'labels' => $labels,
+		'hierarchical' => false,
+		'description' => __('IMDb entries for the candor Theme.', 'candor'),
+		'supports' => array( 'title', 'editor', 'thumbnail', 'author', 'comments'),
+		'taxonomies' => array( 'imdb-category' ),
+		'public' => true,
+		'show_ui' => true,
+		'show_in_menu' => true,
+		'menu_position' => 20,
+		'menu_icon' => get_template_directory_uri() . '/images/i1.png',
+
+		'show_in_nav_menus' => true,
+		'publicly_queryable' => true,
+		'exclude_from_search' => false,
+		'has_archive' => true,
+		'query_var' => true,
+		'can_export' => true,
+		'rewrite' => array( 'slug' => $slug ),
+		'capability_type' => 'post'
+		);
+
+	register_post_type( 'imdb', $args );
+}
+
+
+
+
+function candor_framework_create_imdb_movie_category_taxonomies(){
+	$labels = array(
+		'name' => _x( 'IMDb Categories','candor' ),
+		'singular_name' => _x( 'IMDb Category','candor' ),
+		'search_items' =>  __( 'Search IMDb Categories','candor' ),
+		'all_items' => __( 'All Movie Categories','candor' ),
+		'parent_item' => __( 'Parent IMDb Category','candor' ),
+		'parent_item_colon' => __( 'Parent IMDb Category:','candor' ),
+		'edit_item' => __( 'Edit IMDb Category','candor' ), 
+		'update_item' => __( 'Update IMDb Category','candor' ),
+		'add_new_item' => __( 'Add New IMDb Category','candor' ),
+		'new_item_name' => __( 'New IMDb Category Name','candor' ),
+		'menu_name' => __( 'IMDb Categories','candor' ),
+		); 	
+	register_taxonomy('imdb_category', array('imdb'), array(
+		'hierarchical' => true,
+		'labels' => $labels,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'query_var' => true,
+		'rewrite' => true,
+		));
+}
+
+function candor_framework_create_imdb_movie_tag_taxonomies(){
+	$labels = array(
+		'name' => _x( 'IMDb Tags','candor' ),
+		'singular_name' => _x( 'IMDb Tag','candor' ),
+		'search_items' =>  __( 'Search IMDb Tags','candor' ),
+		'all_items' => __( 'All IMDb Tags','candor' ),
+		'parent_item' => __( 'Parent IMDb Tag','candor' ),
+		'parent_item_colon' => __( 'Parent IMDb Tag:','candor' ),
+		'edit_item' => __( 'Edit IMDb Tag','candor' ), 
+		'update_item' => __( 'Update IMDb Tag','candor' ),
+		'add_new_item' => __( 'Add New IMDb Tag','candor' ),
+		'new_item_name' => __( 'New IMDb Tag Name','candor' ),
+		'menu_name' => __( 'IMDb Tags','candor' ),
+		); 	
+	register_taxonomy('imdb_tag', array('imdb'), array(
+		'hierarchical' => false,
+		'labels' => $labels,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'query_var' => true,
+		'rewrite' => true,
+		));
+}
+
+
+
 
 function candor_framework_register_pricing() {
 
