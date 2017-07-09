@@ -223,4 +223,4 @@ function candor_framework_videostories_video_playlist_shortcode_vc() {
 	);
 	
 }
-add_action( 'init', 'candor_framework_videostories_video_playlist_shortcode_vc');
+add_action( 'vc_before_init', 'candor_framework_videostories_video_playlist_shortcode_vc');
