@@ -72,7 +72,7 @@ function videostories_add_new_icon_set_to_iconbox( ) {
   $param['value'][__( 'Themify Icon', 'videostories' )] = 'themify';
   vc_update_shortcode_param( 'contact_icon', $param );
 }
-add_filter( 'init', 'videostories_add_new_icon_set_to_iconbox', 40 );
+add_filter( 'vc_after_init', 'videostories_add_new_icon_set_to_iconbox', 100 );
 
 
 // Load your CSS to display the icons in the Visual Composer Editor
