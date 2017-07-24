@@ -11,7 +11,7 @@ function candor_vc_home_gallery_block_shortcode( $atts, $content = null ) {
         'learn_more_title'  => 'Learn More',
         'portfolio_posts'   => '8',
         'filter'            => 'all',
-        'parallax_image'    => ELEVATION_THEME_DIRECTORY . '/images/2.jpg',
+        'parallax_image'    => ELEVATION_PATH . '/images/2.jpg',
       ), $atts 
     ) 
   );
@@ -152,7 +152,7 @@ function candor_home_gallery_block_shortcode_vc() {
           'type' => 'attach_image',
           'heading' => esc_html__( 'Background Parallax Image', 'elevation' ),
           'param_name' => 'parallax_image',
-          'value' => ELEVATION_THEME_DIRECTORY . '/images/2.jpg',
+          'value' => get_template_directory_uri() . '/images/2.jpg',
           "admin_label" => true,
           'description' => esc_html__( 'Select Background Parallax Image from media library.', 'elevation' )
         ),

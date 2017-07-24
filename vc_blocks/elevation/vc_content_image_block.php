@@ -12,7 +12,7 @@ function candor_vc_content_image_block_shortcode( $atts, $content = null ) {
 				'learn_more_url' 	=> '#',
 				'donate_title' 		=> 'Donate',
 				'donate_url' 		=> '#',
-				'right_image' 		=> ELEVATION_THEME_DIRECTORY . '/images/difference.jpg'
+				'right_image' 		=> get_template_directory_uri() . '/images/difference.jpg'
 			), $atts 
 		) 
 	);
@@ -78,7 +78,7 @@ function candor_vc_content_image_block_shortcode_vc() {
 					'type' => 'attach_image',
 					'heading' => esc_html__( 'Images', 'elevation' ),
 					'param_name' => 'right_image',
-					'value' => ELEVATION_THEME_DIRECTORY . '/images/difference.jpg',
+					'value' => get_template_directory_uri() . '/images/difference.jpg',
 					"admin_label" => true,
 					'description' => esc_html__( 'Select image from media library.', 'elevation' )
 				),

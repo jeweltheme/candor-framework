@@ -9,8 +9,8 @@ function candor_vc_featured_content_block_shortcode( $atts, $content = null ) {
 			array(
 				'title_1' 			=> 'Give Food For Africa',
 				'title_2' 			=> 'Education For Every Child',
-				'image_1' 			=> ELEVATION_THEME_DIRECTORY . '/images/banner/1.jpg',
-				'image_2' 			=> ELEVATION_THEME_DIRECTORY . '/images/banner/2.jpg'
+				'image_1' 			=> get_template_directory_uri() . '/images/banner/1.jpg',
+				'image_2' 			=> get_template_directory_uri() . '/images/banner/2.jpg'
 			), $atts 
 		) 
 	);
@@ -74,7 +74,7 @@ function candor_vc_featured_content_shortcode_vc() {
 					'type' => 'attach_image',
 					'heading' => esc_html__( 'Image 1', 'elevation' ),
 					'param_name' => 'image_1',
-					'value' => ELEVATION_THEME_DIRECTORY . '/images/banner/1.jpg',
+					'value' => get_template_directory_uri() . '/images/banner/1.jpg',
 					"admin_label" => true,
 					'description' => esc_html__( 'Select image from media library.', 'elevation' )
 				),
@@ -89,7 +89,7 @@ function candor_vc_featured_content_shortcode_vc() {
 					'type' => 'attach_image',
 					'heading' => esc_html__( 'Image 2', 'elevation' ),
 					'param_name' => 'image_2',
-					'value' => ELEVATION_THEME_DIRECTORY . '/images/banner/2.jpg',
+					'value' => get_template_directory_uri() . '/images/banner/2.jpg',
 					"admin_label" => true,
 					'description' => esc_html__( 'Select image from media library.', 'elevation' )
 				),

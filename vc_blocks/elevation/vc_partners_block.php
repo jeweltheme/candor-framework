@@ -81,7 +81,7 @@ function candor_framework_partners_shortcode_vc() {
 					'type' => 'attach_images',
 					'heading' => esc_html__( 'Images', 'elevation' ),
 					'param_name' => 'images',
-					'value' => ELEVATION_THEME_DIRECTORY . '/images/difference.jpg',
+					'value' => get_template_directory_uri() . '/images/difference.jpg',
 					"admin_label" => true,
 					'description' => esc_html__( 'Select images from media library.', 'elevation' )
 					),
