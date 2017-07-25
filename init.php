@@ -76,6 +76,11 @@ $defaults = array(
 	'videostories_vc_blocks'	=> '0',
 	'videostories_shortcodes'	=> '0',
 
+	//CAST
+	'cast_widgets'     		=> '0',
+	'cast_vc_blocks'   		=> '0',
+	'cast_shortcodes'  		=> '0',
+
 
 );
 $candor_options = wp_parse_args( get_option('candor_framework_options'), $defaults);
@@ -205,6 +210,24 @@ if( '1' == $candor_options['nord_shortcodes'] ){
 }
 
 
+
+/**
+ * Register appropriate CAST Shortcodes
+ */
+if( '1' == $candor_options['cast_shortcodes'] ){
+	require_once( CANDOR_FRAMEWORK_PATH . 'themes/cast-functions.php' );	
+		// Check for PHP version and use the correct one
+	$candordir = ( version_compare( PHP_VERSION, '5.3.0' ) >= 0 ) ? __DIR__ : dirname( __FILE__ );
+
+	if ( file_exists(  $candordir . '/cmb2/metabox.php' ) ) {
+		//require_once  $candordir . '/CMB2/init.php';
+		require_once  $candordir . '/cmb2/metabox.php';
+	} 
+	elseif ( file_exists(  $candordir . '/cmb2/init.php' ) ) {
+		require_once  $candordir . '/cmb2/init.php';
+	}
+
+}
 
 
 /**
@@ -723,6 +746,27 @@ if( '1' == $candor_options['inventory_vc_blocks'] ){
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_service_block.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_callout_block.php' );
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/inventory/vc_partners_block.php' );
+	
+}
+
+
+/*
+* Register Appropriate Shortcodes for CAST
+*/
+
+if( '1' == $candor_options['cast_vc_blocks'] ){
+
+	 require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/cast/vc_about_service.php' );
+	 require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/cast/vc_about_welcome.php' );
+	 require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/cast/vc_portfolio.php' );
+	 require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/cast/vc_recent_projects.php' );
+	 require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/cast/vc_partners_block.php' );
+	 require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/cast/vc_testimonial.php' );
+	 require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/cast/vc_latest_news.php' );
+	 require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/cast/vc_services.php' );
+	 require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/cast/vc_team_block.php' );
+	 require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/cast/vc_blog.php' );
+	 require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/cast/vc_contact.php' );
 	
 }
 
