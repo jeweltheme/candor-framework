@@ -414,6 +414,7 @@ if( '1' == $candor_options['events_post_type'] ){
  */
 if( '1' == $candor_options['service_post_type'] ){
 	add_action( 'init', 'candor_framework_register_services', 10  );
+	add_action( 'init', 'candor_framework_service_category_taxonomies', 10  );
 }
 
 /**
