@@ -277,13 +277,13 @@ if( '1' == $candor_options['aq_resizer'] ){
  */
 if( '1' == $candor_options['cmbmetaboxes'] ){
 
-	if ( file_exists(  CANDOR_FRAMEWORK_PATH. '/cmb/metabox.php' ) ) {
-		require_once  CANDOR_FRAMEWORK_PATH . '/cmb/metabox.php';
-	} 
-	elseif ( file_exists(  CANDOR_FRAMEWORK_PATH . '/cmb/init.php' ) ) {
-		require_once  CANDOR_FRAMEWORK_PATH . '/cmb/init.php';
-	}
-
+// 	if ( file_exists(  CANDOR_FRAMEWORK_PATH. '/cmb/metabox.php' ) ) {
+// 		require_once  CANDOR_FRAMEWORK_PATH . '/cmb/metabox.php';
+// 	} 
+// 	elseif ( file_exists(  CANDOR_FRAMEWORK_PATH . '/cmb/init.php' ) ) {
+// 		require_once  CANDOR_FRAMEWORK_PATH . '/cmb/init.php';
+// 	}
+	require_once( CANDOR_FRAMEWORK_PATH . 'cmb/metaboxes.php' );
 }
 
 
