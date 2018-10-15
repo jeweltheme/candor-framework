@@ -82,6 +82,11 @@ $defaults = array(
 	'cast_shortcodes'  		=> '0',
 
 
+	//Bronx
+	'bronx_widgets'     		=> '0',
+	'bronx_kc_blocks'   		=> '0',
+	'bronx_shortcodes'  		=> '0',
+
 );
 $candor_options = wp_parse_args( get_option('candor_framework_options'), $defaults);
 
@@ -229,6 +234,26 @@ if( '1' == $candor_options['cast_shortcodes'] ){
 
 }
 
+
+
+
+/**
+ * Register appropriate Bronx Shortcodes
+ */
+if( '1' == $candor_options['bronx_shortcodes'] ){
+	require_once( CANDOR_FRAMEWORK_PATH . 'themes/bronx-shortcodes.php' );	
+		// Check for PHP version and use the correct one
+	$candordir = ( version_compare( PHP_VERSION, '5.3.0' ) >= 0 ) ? __DIR__ : dirname( __FILE__ );
+
+	if ( file_exists(  $candordir . '/cmb2/metabox.php' ) ) {
+		//require_once  $candordir . '/CMB2/init.php';
+		require_once  $candordir . '/cmb2/metabox.php';
+	} 
+	elseif ( file_exists(  $candordir . '/cmb2/init.php' ) ) {
+		require_once  $candordir . '/cmb2/init.php';
+	}
+
+}
 
 /**
  * Register appropriate Polmo Pro Widgets
@@ -805,5 +830,19 @@ if( '1' == $candor_options['videostories_vc_blocks'] ){
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/imdb-slider.php' );	
 	require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/videostories/imdb-category.php' );	
 		
+	
+}
+
+
+
+
+
+/*
+* Register Appropriate Shortcodes for CAST
+*/
+
+if( '1' == $candor_options['bronx_kc_blocks'] ){
+
+	 require_once( CANDOR_FRAMEWORK_PATH . 'vc_blocks/bronx/slider.php' );
 	
 }
