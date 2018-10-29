@@ -1,0 +1,32 @@
+input[type="range"] {
+	width: 75%;
+	float: left;
+}
+input[type="range"] + input[type="text"] {
+	float: right;
+	width: 22%;
+	color: #333;
+}
+.cmb-repeatable-grouping {
+	background: #fff;
+}
+.btn.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+/* CMB2 Map CSS */
+.candor-map {
+	height: 400px;
+	width: 99%;
+	margin: 5px 1px 1px;
+	border: solid 1px #DDD;
+	box-sizing: border-box;
+}
+.candor-map img {
+	max-width: none;
+}
