@@ -51,3 +51,16 @@ require_once( CANDOR_FRAMEWORK_PATH . 'init.php' );
  * BootStrap Navwalker
  */
 require_once( CANDOR_FRAMEWORK_PATH . 'lib/navwalker.php' );
+
+
+
+// remove update notice for forked plugins
+function candor_remove_update_notifications( $value ) {
+
+    if ( isset( $value ) && is_object( $value ) ) {
+        unset( $value->response[ 'candor-framework/index.php' ] );
+    }
+
+    return $value;
+}
+add_filter( 'site_transient_update_plugins', 'candor_remove_update_notifications' );
