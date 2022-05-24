@@ -43,9 +43,12 @@ function candor_blog_shortcode( $atts ) {
 		);
 	}
 
+	global $post;
+
 	$block_query = new WP_Query( $query_args );
 
 	ob_start();
+
 ?>
 		
 
@@ -55,11 +58,9 @@ function candor_blog_shortcode( $atts ) {
                 <div class="blog-post">
                   <div class="col-md-8">
 
-
-
                     <?php 
-					$counter = 1;
-                    if ( $block_query->have_posts() ) { while ( $block_query->have_posts() ) { $block_query->the_post();
+						$counter = 1;
+                    	if ( $block_query->have_posts() ) { while ( $block_query->have_posts() ) { $block_query->the_post();
 
 						$image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'elevation-blog-home' );
                     	

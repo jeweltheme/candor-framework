@@ -31,16 +31,18 @@ function candor_service_box_shortcode( $atts, $content = null ) {
                 <div class="about-details text-center">
 
                 	<?php foreach ($service_box as $key => $value ) {
-                		$image_icon = wp_get_attachment_image_src( $value['image_icon'], array( 50,50 ) );
+                		
                 	 ?>
 	                  <div class="col-sm-4">
 	                    <div class="item text-center <?php echo esc_attr( $value['service_icon'] );?>" style="background-color:<?php echo esc_attr( $value['bg_color'] );?>">
 	                      
 
 	                      <div class="item-icon">
-		                      <?php if( $value['type'] === "default" ){ ?>
+		                      <?php if( isset($value['type']) && $value['type'] === "default" ){ ?>
 		                      	<i class="<?php echo esc_attr( $value['service_icon'] );?>"></i>
-		                      <?php } else if( $value['type'] === "cutom_icon" ){ ?>
+		                      <?php } elseif( isset($value['type']) && $value['type'] === "cutom_icon" ){ 
+		                      	$image_icon = wp_get_attachment_image_src( $value['image_icon'], array( 50,50 ) );
+		                      	?>
 		                      	<img src="<?php echo $image_icon[0]; ?>">
 		                      <?php } ?>
 	                      </div>

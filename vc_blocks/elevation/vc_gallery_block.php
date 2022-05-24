@@ -11,11 +11,14 @@ function candor_vc_home_gallery_block_shortcode( $atts, $content = null ) {
         'learn_more_title'  => 'Learn More',
         'portfolio_posts'   => '8',
         'filter'            => 'all',
+        'view_all_text'     => 'View All',
         'parallax_image'    => ELEVATION_PATH . '/images/2.jpg',
       ), $atts 
     ) 
   );
   
+  global $elevation_options;
+
   /**
    * Setup post query
    */
@@ -67,7 +70,9 @@ function candor_vc_home_gallery_block_shortcode( $atts, $content = null ) {
 
           <div class="section-details">
             <div class="itemFilter">
-              <a href="#" data-filter="" class="current"><?php echo esc_html__('View All','elevation');?></a>
+              <a href="#" data-filter="" class="current">
+                <?php echo $view_all_text;?>
+              </a>
               <?php 
               $category = get_terms( 'portfolio_category' );
               foreach ($category as $cat) { 
@@ -79,8 +84,8 @@ function candor_vc_home_gallery_block_shortcode( $atts, $content = null ) {
             <div id="gallery-items" class="gallery-items">
 
               <?php
-              $portfolio = candor_get_custom_posts("portfolio", $portfolio_posts);
-              foreach ($portfolio as $post) {
+                $portfolio = candor_get_custom_posts("portfolio", $portfolio_posts);
+                foreach ($portfolio as $post) {
                   setup_postdata($post);
                   $terms = wp_get_post_terms( $post->ID, 'portfolio_category', array("fields" => "all"));  
 
@@ -90,7 +95,13 @@ function candor_vc_home_gallery_block_shortcode( $atts, $content = null ) {
                    $urls = wp_get_attachment_url( get_post_thumbnail_id( $post->ID, 'full' ) );
                   ?>
                     <div class="item <?php echo implode(' ', $t); $t = array(); ?>">
-                      <a href="<?php echo $urls; ?>">
+
+                      <?php if( $elevation_options['section_portfolio_details_page'] == "popup" ) { ?>
+                          <a href="<?php echo $urls; ?>">
+                      <?php } else { ?>
+                          <a href="<?php echo get_the_permalink($post->ID); ?>">
+                      <?php } ?>
+
                         <?php echo get_the_post_thumbnail($post->ID, 'elevation-home-gallery');?>
                         <?php //the_post_thumbnail('elevation-blog-thumb'); ?>
                         <div class="item-details">
@@ -155,6 +166,12 @@ function candor_home_gallery_block_shortcode_vc() {
           'value' => get_template_directory_uri() . '/images/2.jpg',
           "admin_label" => true,
           'description' => esc_html__( 'Select Background Parallax Image from media library.', 'elevation' )
+        ),
+        array(
+          "type" => "textfield",
+          "heading" => __("View All Text", 'elevation'),
+          "param_name" => "view_all_text",
+          "value" => esc_html__('View All', 'elevation' )
         ),
         array(
           "type" => "textfield",

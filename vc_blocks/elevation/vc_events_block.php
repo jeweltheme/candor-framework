@@ -9,7 +9,8 @@ function candor_framework_events_shortcode( $atts ) {
 			array(
 				'title' 			=> 'Upcoming Events',
 				'type' 				=> 'carousel',
-				'pppage' 			=> '5',
+        'left_posts'  => '2',
+        'right_posts' => '3',        
 				'filter'	 		=> 'all',
 
 			), $atts 
@@ -22,12 +23,8 @@ function candor_framework_events_shortcode( $atts ) {
   global $post;
 
 ?>
-
-
-
   
         <!-- Events Section -->
-
         <section class="events">
           <div class="section-padding">
             <div class="container">
@@ -53,20 +50,20 @@ function candor_framework_events_shortcode( $atts ) {
                       $today_date = "$y-$m-$d";
 
                       $args = array(
-                        'post_type' => 'events',
-                        'post_status' => 'publish',
-                        'posts_per_page' => '2',
-                        'meta_query' => array(
-                          array(
-                            'key' => '_elevation_event_date',
-                            'compare' => '>=',
-                            'value' => $today,
-                            )
-                          ),
-                        'meta_key' => '_elevation_event_date',
-                        'orderby' => 'meta_value',
-                        'order' => 'ASC',
-                        'paged' => ( get_query_var('paged') ? get_query_var('paged') : 1 ),
+
+                        'post_type'       => 'events',
+                        'orderby'         => 'meta_value',
+                        'meta_key'        => '_elevation_event_date',
+                        'order'           => 'ASC',
+                        'posts_per_page'  => $left_posts,
+                        'meta_query'      => array(
+                            array(
+                                  'key'     => '_elevation_event_date',
+                                  'value'   => date("Y-m-d"), // Set today's date (note the similar format)
+                                  'compare' => '>=', // Return the ones greater than today's date
+                                  'type'    => 'DATE' // Let WordPress know we're working with date
+                                )
+                            ),
                         );
 
                       $causes1 = get_posts( $args );
@@ -175,22 +172,24 @@ function candor_framework_events_shortcode( $atts ) {
                         $today = current_time('d M, y');
 
                         $causes2 = array(
-                          'post_type' => 'events',
-                          'post_status' => 'publish',
-                          'offset'                 => 2,
-                          'posts_per_page'         => 3,
-                          'post__not_in'           => $do_not_duplicate,
-                          'meta_query' => array(
+
+                        'post_type'       => 'events',
+                        'orderby'         => 'meta_value',
+                        'meta_key'        => '_elevation_event_date',
+                        'order'           => 'ASC',
+                        'offset'          => $left_posts,
+                        'posts_per_page'  => $right_posts, // Let's show them all.  
+                        'post__not_in'    => $do_not_duplicate,
+
+                        'meta_query'  => array(
                             array(
-                              'key' => '_elevation_event_date',
-                              'compare' => '>=',
-                              'value' => $today,
-                              )
+                                  'key' => '_elevation_event_date',
+                                  'value' => date("Y-m-d"), // Set today's date (note the similar format)
+                                  'compare' => '>=', // Return the ones greater than today's date
+                                  'type' => 'DATE' // Let WordPress know we're working with date
+                                )
                             ),
-                          'meta_key' => '_elevation_event_date',
-                          'orderby' => 'meta_value',
-                          'order' => 'ASC',
-                          'paged' => ( get_query_var('paged') ? get_query_var('paged') : 1 ),
+
                          );
 
 
@@ -449,10 +448,16 @@ function candor_framework_events_shortcode_vc() {
 				),
 				array(
 					"type" => "textfield",
-					"heading" => __("Show How Many Posts?", 'elevation'),
-					"param_name" => "pppage",
-					"value" => '5'
-				)
+					"heading" => __("Left Side Posts?", 'elevation'),
+					"param_name" => "left_posts",
+					"value" => '2'
+				),
+        array(
+          "type" => "textfield",
+          "heading" => __("Right Side Posts?", 'elevation'),
+          "param_name" => "right_posts",
+          "value" => '3'
+        )
 			)
 		) 
 	);
