@@ -1036,9 +1036,6 @@ function cmb_scripts( $hook ) {
 
 	global $pixtypes_plugin;
 	$plugin_version = 0;
-	if ( method_exists( $pixtypes_plugin, 'get_plugin_version' ) ) {
-		$plugin_version = $pixtypes_plugin->get_plugin_version();
-	}
 
 	global $wp_version;
 	// only enqueue our scripts/styles on the proper pages

@@ -64,7 +64,7 @@ function candor_framework_register_portfolio() {
 
 	$displays = get_option('candor_framework_cpt_display_options');
 
-	if( $displays['portfolio_slug'] ){ $slug = $displays['portfolio_slug']; } else { $slug = 'portfolio'; }
+	if( isset($displays['portfolio_slug']) && !empty($displays['portfolio_slug'] ) ){ $slug = $displays['portfolio_slug']; } else { $slug = 'portfolio'; }
 
 	$labels = array( 
 		'name' => __( 'Portfolio', 'candor' ),
@@ -139,7 +139,7 @@ function candor_framework_register_video() {
 
 	$displays = get_option('candor_framework_cpt_display_options');
 
-	if( $displays['video_slug'] ){ $slug = $displays['video_slug']; } else { $slug = 'video'; }
+	if( isset($displays['video_slug']) && !empty($displays['video_slug']) ){ $slug = $displays['video_slug']; } else { $slug = 'video'; }
 
 	$labels = array( 
 		'name' => __( 'Videos', 'candor' ),
@@ -242,7 +242,7 @@ function candor_framework_register_movie() {
 
 	$displays = get_option('candor_framework_cpt_display_options');
 
-	if( $displays['movie_slug'] ){ $slug = $displays['movie_slug']; } else { $slug = 'movie'; }
+	if( isset($displays['movie_slug']) && !empty($displays['movie_slug']) ){ $slug = $displays['movie_slug']; } else { $slug = 'movie'; }
 
 	$labels = array( 
 		'name' => __( 'Movies', 'candor' ),
@@ -347,7 +347,7 @@ function candor_framework_register_imdb_movie() {
 
 	$displays = get_option('candor_framework_cpt_display_options');
 
-	if( $displays['imdb_slug'] ){ $slug = $displays['imdb_slug']; } else { $slug = 'imdb'; }
+	if( isset($displays['imdb_slug']) && !empty($displays['imdb_slug']) ){ $slug = $displays['imdb_slug']; } else { $slug = 'imdb'; }
 
 	$labels = array( 
 		'name' => __( 'IMDb', 'candor' ),
@@ -565,7 +565,7 @@ function candor_framework_register_team() {
 
 	$displays = get_option('candor_framework_cpt_display_options');
 
-	if( $displays['team_slug'] ){ $slug = $displays['team_slug']; } else { $slug = 'team'; }
+	if( isset($displays['team_slug']) && !empty($displays['team_slug']) ){ $slug = $displays['team_slug']; } else { $slug = 'team'; }
 
 	$labels = array( 
 		'name' => __( 'Team Members', 'candor' ),
